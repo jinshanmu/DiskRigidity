@@ -1,0 +1,1059 @@
+\pdfoutput=1
+\documentclass[preprints,article,submit,oneauthor]{Definitions/mdpi}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\setlength{\headheight}{18pt}
+\numberwithin{equation}{section}
+
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\mathbb D}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+\firstpage{1}
+\makeatletter
+\setcounter{page}{\@firstpage}
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2026}
+\copyrightyear{2026}
+\datereceived{}
+\daterevised{}
+\dateaccepted{}
+\datepublished{}
+
+\Title{Rigidity at the Extremal Crouzeix Constant}
+\Author{Anonymous}
+\AuthorNames{Anonymous}
+\address{}
+\abstract{For a complex matrix \texorpdfstring{\(A\)}{A}, let \texorpdfstring{\(\psi(A)\)}{psi(A)} be the norm of the polynomial functional calculus on its numerical range. We prove that \texorpdfstring{\(\psi(A)=2\)}{psi(A)=2} only when the numerical range is a nondegenerate closed disk. The proof first extracts the equality conditions in the sharp double-layer estimate. After boundary eigenvalues are removed, a finite-Blaschke extremizer satisfies an exact boundary-kernel identity. On a curved exposed arc this identity makes the extremizer rational. An extremal state then places every zero of its reduced numerator inside the numerical range and every pole outside; consequently its full unit lemniscate coincides with the boundary of the numerical range. The dual of that algebraic boundary divides the Hermitian Kippenhahn determinant. Hyperbolicity and strict convexity force the dual curve to have degree two, and its points at infinity force the resulting conic to be a circle.}
+\keyword{numerical range; Crouzeix ratio; spectral set; rational lemniscate; hyperbolic polynomial}
+\MSC{47A12; 47A25; 15A60}
+
+\begin{document}
+
+\section{Introduction}
+
+For \(A\in M_N(\C)\), set
+\[
+ W(A)=\{u^*Au:u\in\C^N,\ \|u\|_2=1\}.
+\]
+For a polynomial \(p\), let \(\|p(A)\|\) be its Euclidean operator norm and put
+\[
+ \psi(A)=
+ \sup\left\{\|p(A)\|:p\in\C[z],
+               \max_{z\in W(A)}|p(z)|\leq1\right\}.
+\]
+This quantity was introduced by Crouzeix in connection with the conjecture
+that \(\psi(A)\leq2\) for every matrix~\cite{Crouzeix2004}.  The integral
+representation behind the modern estimates goes back to Delyon and
+Delyon~\cite{DelyonDelyon1999}.  Crouzeix and Palencia proved the bound
+\(1+\sqrt2\)~\cite{CrouzeixPalencia2017}, and Lorist and Schwenninger
+established the sharp bound \(2\)~\cite{LoristSchwenninger2026}.  We retain the
+equality information in the double-layer and iterate arguments.  The resulting
+rigidity statement is the following.
+
+\begin{Theorem}\label{thm:main}
+For every \(N\geq1\) and \(A\in M_N(\C)\),
+\[
+ \psi(A)=2\quad\Longrightarrow\quad
+ W(A)=\{z\in\C:|z-\gamma|\leq\rho\}
+\]
+for some \(\gamma\in\C\) and some \(\rho>0\).
+\end{Theorem}
+
+The proof has four steps.  An equality analysis of the sharp bound produces
+two extremal vectors and a pointwise boundary-kernel identity.  A curved
+exposed arc then turns that identity into a rational formula for the
+extremizer.  A positive state identifies its full unit lemniscate with
+\(\partial W(A)\).  Finally, the Kippenhahn determinant converts the tangent
+curve into a hyperbolic factor; a generic contact count shows that this factor
+is a conic, hence a circle.  All scalar matrix coefficients are written as
+\(x^*By\).
+
+\section{Numerical-range preliminaries}
+
+\begin{Lemma}[Numerical-range geometry]\label{lem:foundation}
+The following facts hold.
+\begin{enumerate}
+\item \(W(A)\) is nonempty, compact, and convex.
+\item If \(W(A)\) is a singleton or is contained in a line, then \(A\) is
+normal and \(\psi(A)=1\).
+\item For \(a\neq0\), \(b\in\C\), and unitary \(\mathcal U\),
+\[
+ W(aA+bI)=aW(A)+b,\qquad \psi(aA+bI)=\psi(A),\qquad
+ \psi(\mathcal U^*A\mathcal U)=\psi(A).
+\]
+Also \(W(A^*)=\overline{W(A)}\) and \(\psi(A^*)=\psi(A)\).
+\item For a finite direct sum,
+\[
+ W\left(\bigoplus_jA_j\right)=\conv\Bigl(\bigcup_jW(A_j)\Bigr),
+ \qquad
+ \psi\left(\bigoplus_jA_j\right)\leq\max_j\psi(A_j).
+\]
+\item The support function of \(W(A)\) is
+\[
+ h_A(\theta)=\lambda_{\max}\!\left(\Rea(e^{-i\theta}A)\right).
+\]
+\end{enumerate}
+\end{Lemma}
+
+\begin{proof}
+The unit sphere is compact and \(u\mapsto u^*Au\) is continuous, proving
+nonemptiness and compactness.  To prove convexity, take two points of \(W(A)\)
+and compress \(A\) to the span of corresponding unit vectors.  It is enough to
+know that the numerical range of a \(2\times2\) matrix is convex.  After unitary
+triangularization such a matrix has the form
+\(
+ \begin{psmallmatrix}\lambda_1&c\\0&\lambda_2\end{psmallmatrix}
+\).
+For \(u=(\cos t,e^{i\varphi}\sin t)\),
+\[
+ u^*Au=\lambda_1\cos^2t+\lambda_2\sin^2t
+       +c e^{i\varphi}\sin t\cos t.
+\]
+These points fill the possibly degenerate ellipse with foci
+\(\lambda_1,\lambda_2\), hence a convex set.  The two-dimensional compression
+is contained in \(W(A)\), so the segment joining the original two points is
+contained in \(W(A)\).
+
+If \(W(A)=\{\gamma\}\), then \(x^*(A-\gamma I)x=0\) for all \(x\).  The complex
+polarization identity makes every matrix coefficient of \(A-\gamma I\) zero.
+If \(W(A)\) lies in a line, a translation and a nonzero complex rotation make
+all quadratic forms of \(A\) real.  The skew-Hermitian part then has zero
+quadratic form and vanishes by polarization, so the transformed matrix is
+Hermitian.  A normal matrix satisfies
+\[
+ \|p(A)\|=\max_{\lambda\in\spec(A)}|p(\lambda)|
+ \leq\max_{z\in W(A)}|p(z)|.
+\]
+The constant polynomial (1) gives the reverse inequality.
+
+The affine and unitary formulas follow by changing variables in polynomials.
+For adjoints use \(\widetilde p(z)=\overline{p(\overline z)}\), for which
+\(\widetilde p(A^*)=p(A)^*\).  For a direct sum, a unit vector decomposes into block
+components and its numerical value is a convex combination of block numerical
+values.  Also \(p(\oplus A_j)=\oplus p(A_j)\); the supremum norm on the convex
+hull dominates that on every block.  Finally,
+\[
+ \max_{z\in W(A)}\Rea(e^{-i\theta}z)
+ =\max_{\|u\|=1}u^*\Rea(e^{-i\theta}A)u,
+\]
+which is the largest eigenvalue of the displayed Hermitian matrix.
+\end{proof}
+
+\section{The sharp bound and its equality case}
+
+We include the sharp estimate because the equality conditions are the starting
+point of the rigidity argument.  The next lemma is the iterated-dilation
+estimate of Lorist and Schwenninger~\cite{LoristSchwenninger2026}, followed by
+the equality analysis needed here.
+
+\begin{Lemma}[An abstract dilation estimate]\label{lem:dilation}
+Let \(T\) act on a finite-dimensional Hilbert space.  Suppose that \(\mathcal M\) is a
+contraction on another Hilbert space, \(\mathcal V\) is an isometry, and
+\[
+ E_n=2\mathcal V^*\mathcal M^{*n}\mathcal V-T^{*n}\qquad(n\geq1)
+\]
+are uniformly bounded and commute with \(T\).  Then \(\|T\|\leq2\).
+
+If additionally \(\|T\|=2\), \(r(T)<1\), \(T^*Tx=4x\), \(\|x\|=1\), and
+\(y=Tx/2\), then
+\[
+ T^*x=0,\quad T^*y=2x,\quad
+ \mathcal M\mathcal Vx=\mathcal Vy,\quad
+ \mathcal M^*\mathcal Vy=\mathcal Vx.
+\]
+\end{Lemma}
+
+\begin{proof}
+Put \(\kappa=\|T\|\).  There is nothing to prove if \(\kappa\leq1\).  Choose a
+unit vector \(x\) with \(T^*Tx=\kappa^2x\), and set
+\[
+ m_n=\Rea\bigl(x^*E_nT^nx\bigr),\qquad
+ \omega=\mathcal M^*\mathcal VTx-\kappa\mathcal Vx.
+\]
+The defining identity gives
+\(\|T^{*n}\|\leq2+\sup_k\|E_k\|\), so the powers of \(T\), and hence
+\((m_n)\), are bounded.  Put
+\(Q_n=\mathcal V^*\mathcal M^{*n}\mathcal V\) and
+\(q_n=T^{*n}x\).  Commutativity of \(E_n\) with \(T\) gives
+\[
+ 2(Q_{n+1}T-TQ_{n+1})
+ =T^{*(n+1)}T-TT^{*(n+1)}.
+\]
+Moreover,
+\(m_n=2\Rea(q_n^*Q_nx)-\|q_n\|^2\) and
+\(
+ \mathcal V^*\mathcal M^{*n}\omega=Q_{n+1}Tx-\kappa Q_nx.
+\)
+Multiplying the displayed commutator identity on the left by \(q_n^*\), using
+\(T^*Tx=\kappa^2x\), and taking real parts now gives
+\begin{align*}
+ \kappa m_n-m_{n+1}
+ &=\kappa(\kappa-1)\|T^{*n}x\|^2
+   -2\Rea\bigl((\mathcal V^*\mathcal M^{*n}\omega)^*T^{*n}x\bigr)\\
+ &=\kappa(\kappa-1)
+   \left\|T^{*n}x-\frac{\mathcal V^*\mathcal M^{*n}\omega}
+   {\kappa(\kappa-1)}\right\|^2
+   -\frac{\|\mathcal V^*\mathcal M^{*n}\omega\|^2}{\kappa(\kappa-1)}\\
+ &\geq-\frac{\|\omega\|^2}{\kappa(\kappa-1)}.
+\end{align*}
+Telescoping, with the boundedness of \(m_n\), yields
+\[
+ \kappa m_1
+ =\sum_{n\geq1}\kappa^{-n+1}(\kappa m_n-m_{n+1})
+ \geq-\frac{\|\omega\|^2}{(\kappa-1)^2}.               \tag{3.1}
+\]
+On the other hand, using that \(\mathcal V\) is isometric and \(\mathcal M\) contractive,
+\begin{align*}
+ \|\omega\|^2
+ &\leq2\kappa^2
+ -2\kappa\Rea\bigl(x^*\mathcal V^*\mathcal M^*\mathcal VTx\bigr)\\
+ &=2\kappa^2-\kappa m_1-\kappa^3.                     \tag{3.2}
+\end{align*}
+Combining (3.1) and (3.2) gives
+\[
+ \|\omega\|^2\left(1-\frac1{(\kappa-1)^2}\right)
+ \leq\kappa^2(2-\kappa),
+\]
+which is impossible for \(\kappa>2\).
+
+Now let \(\kappa=2\).  Equations (3.1)--(3.2) become
+\(2m_1\geq-\|\omega\|^2\) and \(\|\omega\|^2\leq-2m_1\), so equality holds in both.
+For each \(n\), the slack in the estimate preceding (3.1) is
+\[
+ 2\left\|T^{*n}x-\tfrac12\mathcal V^*\mathcal M^{*n}\omega\right\|^2
+ +\tfrac12\bigl(\|\omega\|^2-\|\mathcal V^*\mathcal M^{*n}\omega\|^2\bigr).
+\]
+All these nonnegative slacks have a positive weighted sum equal to zero.
+Thus, for every (n),
+\[
+ \mathcal V^*\mathcal M^{*n}\omega=2T^{*n}x,
+ \qquad
+ \|\mathcal V^*\mathcal M^{*n}\omega\|=\|\omega\|.
+\]
+Since \(r(T)<1\), \(T^{*n}x\to0\), and these two equalities force
+\(\omega=0\).  Their first instance then gives \(T^*x=0\).
+With \(y=Tx/2\), \(\mathcal M^*\mathcal Vy=\mathcal Vx\).  Both
+\(\mathcal Vx\) and \(\mathcal Vy\) are unit vectors, so equality in
+Cauchy--Schwarz for \(\mathcal M\) gives \(\mathcal M\mathcal Vx=\mathcal Vy\).
+Finally \(T^*y=T^*Tx/2=2x\).
+\end{proof}
+
+\begin{Proposition}[The sharp numerical-range estimate]\label{prop:sharp}
+For every finite matrix \(A\) and every polynomial \(p\),
+\[
+ \|p(A)\|\leq2\max_{z\in W(A)}|p(z)|.                 \tag{3.3}
+\]
+More generally, if \(K\) is a compact convex body,
+\(W(A)\subset K\), \(\spec(A)\subset\Int K\), and \(f\in A(K)\), then
+\[
+ \|f(A)\|\leq2\|f\|_K.                               \tag{3.4}
+\]
+The same holds for \(f\in H^\infty(\Int K)\).
+\end{Proposition}
+
+\begin{proof}
+Normalize \(\|f\|_K\leq1\).  Cauchy's boundary formula below also holds when
+\(f\) is only in \(A(K)\): for \(z_0\in\Int K\), the functions
+\(f(z_0+r(z-z_0))\), \(r<1\), are holomorphic on a neighborhood of \(K\) and
+converge uniformly to \(f\); apply the usual formula to them and pass to the
+limit.  This is the positive double-layer construction used in
+~\cite{DelyonDelyon1999,CrouzeixPalencia2017}.  Parametrize the
+rectifiable convex Jordan curve
+\(\Gamma=\partial K\) counterclockwise by arclength.  Its outward unit normal
+\(\mathfrak n(\sigma)\) exists almost everywhere.  Put
+\(R_\sigma=(\sigma I-A)^{-1}\) and
+\[
+ \mathcal P(\sigma)=\frac1\pi\Rea\bigl(\mathfrak n(\sigma)R_\sigma\bigr).
+\]
+At a point with a normal, the supporting-half-plane property gives
+\[
+ \Delta_\sigma:=\Rea\bigl(\overline{\mathfrak n(\sigma)}(\sigma I-A)\bigr)\succeq0.
+\]
+Multiplication by the two resolvents shows
+\[
+ \Rea(\mathfrak nR_\sigma)=R_\sigma^*\Delta_\sigma R_\sigma\succeq0. \tag{3.5}
+\]
+Since \(d\sigma=i\mathfrak n(\sigma)\,ds\), Cauchy's formula and its adjoint give
+\[
+ \int_\Gamma \mathcal P(\sigma)\,ds=2I.              \tag{3.6}
+\]
+Consequently
+\[
+ (\mathcal Vx)(\sigma)=2^{-1/2}\mathcal P(\sigma)^{1/2}x
+\]
+defines an isometry into \(L^2(\Gamma;\C^N)\).  Let \(M_f\) be multiplication
+by \(f\), and set \(T=f(A)\).  Splitting the two terms in \(\mathcal P\) and using Cauchy's
+formula gives, for every \(n\geq1\),
+\[
+ E_n:=2\mathcal V^*M_f^{*n}\mathcal V-T^{*n}
+ =\frac1{2\pi i}\int_\Gamma
+   \overline{f(\sigma)^n}R_\sigma\,d\sigma.           \tag{3.7}
+\]
+The right side commutes with \(T\), because every resolvent does.  Also
+\[
+ \sup_n\|E_n\|\leq
+ \frac{\operatorname{length}(\Gamma)}{2\pi}
+ \max_{\sigma\in\Gamma}\|R_\sigma\|<\infty.
+\]
+Lemma~\ref{lem:dilation} proves (3.4).
+
+For an \(H^\infty\) function, choose a Riemann map
+\(\phi:\Int K\to\D\) and replace \(f\) by
+\[
+ f_r(z)=f\bigl(\phi^{-1}(r\phi(z))\bigr),\qquad r<1.
+\]
+These functions belong to \(A(K)\), retain norm at most \(1\), and their
+spectral jets converge to those of \(f\); hence \(f_r(A)\to f(A)\).
+
+Finally, for an arbitrary \(A\), apply (3.4) to the outer parallel convex body
+\(K_\varepsilon=W(A)+\varepsilon\overline\D\), which contains \(W(A)\) in its
+interior.  For a polynomial \(p\),
+\(\max_{K_\varepsilon}|p|\to\max_{W(A)}|p|\).  Letting
+\(\varepsilon\downarrow0\) proves (3.3), including all boundary-spectrum and
+nonsmooth cases.
+\end{proof}
+
+\begin{Proposition}[Equality data]\label{prop:equality-data}
+Let \(K=W(A)\) have nonempty interior, let \(\spec(A)\subset\Omega:=\Int K\),
+and let \(f\in A(K)\) be nonconstant with
+\[
+ \|f\|_K=1,\qquad |f|=1\ \hbox{on }\partial K,\qquad \|f(A)\|=2.
+\]
+Then there are orthonormal vectors \(x,y\) such that, with \(T=f(A)\),
+\[
+ Tx=2y,\quad T^*x=0,\quad Ty=0,\quad T^*y=2x,         \tag{3.8}
+\]
+and, for almost every \(\sigma\in\partial K\),
+\[
+ \mathcal P(\sigma)^{1/2}\bigl(y-f(\sigma)x\bigr)=0.  \tag{3.9}
+\]
+Moreover, for every function \(h\) holomorphic near \(\spec(A)\) for which
+the products below are defined,
+\begin{align}
+ x^*h(A)f(A)x&=0,& y^*h(A)f(A)x&=2x^*h(A)x,\tag{3.10}\\
+ x^*h(A)y&=0,& y^*h(A)y&=x^*h(A)x.             \tag{3.11}
+\end{align}
+\end{Proposition}
+
+\begin{proof}
+Apply the construction in Proposition~\ref{prop:sharp}.  The spectral mapping
+theorem gives \(r(T)<1\), because the finitely many eigenvalues of \(A\) are
+inside \(\Omega\) and a nonconstant inner function has modulus strictly less
+than \(1\) there.  Choose \(x\) with \(T^*Tx=4x\), and put \(y=Tx/2\).
+Lemma~\ref{lem:dilation} gives \(T^*x=0\), \(T^*y=2x\), and
+\(M_f\mathcal Vx=\mathcal Vy\).  Here \(\|y\|=1\), and
+\(2x^*y=x^*Tx=(T^*x)^*x=0\), so \(x,y\) are orthonormal.
+The multiplication identity is exactly (3.9).
+
+Apply the same equality argument to \(A^*\), the domain \(\overline K\), and
+\(\widetilde f(z)=\overline{f(\overline z)}\).  Its matrix value is \(T^*\),
+and \(y\) is a top right singular vector for \(T^*\).  The conclusion
+\((T^*)^*y=0\) is \(Ty=0\).  Thus (3.8) holds.
+
+Since \(T\) commutes with \(h(A)\), \(T^*x=0\) gives the first equality in
+(3.10), and \(Tx=2y\) then gives the first equality in (3.11).  Also
+\[
+ x^*h(A)x=\tfrac12y^*Th(A)x
+          =\tfrac12y^*h(A)Tx=y^*h(A)y,
+\]
+and multiplication by \(Tx=2y\) gives the second equality in (3.10).
+\end{proof}
+
+
+\begin{Lemma}[Boundary eigenvalues reduce]\label{lem:boundary-eigen}
+If \(Ax=\lambda x\), \(\|x\|=1\), and \(\lambda\in\partial W(A)\), then
+\(A^*x=\overline\lambda x\).  Consequently
+\[
+ A\simeq A_{\partial}\oplus A_{\mathrm{in}},
+\]
+where \(A_{\partial}\) is diagonal and consists of all eigenvalues on
+\(\partial W(A)\), while
+\(\spec(A_{\mathrm{in}})\subset\Int W(A)\).
+\end{Lemma}
+
+\begin{proof}
+Choose a supporting direction \(n\), \(|n|=1\), at \(\lambda\).  Equality in
+the Rayleigh quotient gives
+\[
+ \Rea(\overline nA)x=\Rea(\overline n\lambda)x.
+\]
+Substituting \(Ax=\lambda x\) gives \(A^*x=\overline\lambda x\).  Thus
+\(\C x\) reduces \(A\).  Split it off and repeat.  Every eigenvalue belongs to
+\(W(A)\), since an eigenvector realizes it, so the remaining spectrum is in
+the interior.
+\end{proof}
+
+\begin{Lemma}[Conformal and finite-interpolation facts]\label{lem:complexfacts}
+Let \(\Omega\) be a bounded convex domain.
+\begin{enumerate}
+\item There is a conformal bijection \(\phi:\Omega\to\D\), and it extends to a
+homeomorphism \(\overline\Omega\to\overline\D\).
+\item Given finitely many values and derivatives at points of \(\Omega\) that
+are realized by a function of \(H^\infty(\Omega)\) of norm at most \(1\), the
+same data are realized by \(\mathcal B\circ\phi\), where \(\mathcal B\) is a finite Blaschke
+product.  If the least possible norm for nonconstant data is exactly \(1\),
+the norm-one interpolant is unique and is of this form.
+\end{enumerate}
+\end{Lemma}
+
+\begin{proof}
+A bounded convex domain is a Jordan domain.  The Riemann mapping theorem and
+the Carath\'eodory boundary theorem therefore give the first assertion.
+
+Transfer the jet data to \(\D\) by \(\phi^{-1}\).  The confluent
+Nevanlinna--Pick theorem says that such finite data are feasible in the Schur
+class exactly when their generalized Pick matrix is positive semidefinite.
+The Schur recursion, with the final free parameter chosen unimodular, then
+produces a rational inner solution, hence a finite Blaschke product.  If
+\(c_0\) is the least common norm of nonconstant data, the generalized Pick
+matrix for the data divided by \(c_0\) is singular: positive definiteness would
+persist after a small decrease of \(c_0\).  After redundant jet conditions are
+consolidated, a singular minimal confluent Pick problem has a unique Schur
+solution, and the same recursion shows that it is a finite Blaschke product.
+These finite-interpolation facts, including repeated nodes, are also recorded
+in the numerical-range setting in~\cite{Crouzeix2004}.
+\end{proof}
+
+For a bounded domain \(\Omega\) and a matrix \(A_0\) with
+\(\spec(A_0)\subset\Omega\), define
+\[
+ \psi_\Omega(A_0)=\sup\{\|g(A_0)\|:g\in H^\infty(\Omega),\
+                         \|g\|_\Omega\leq1\}.
+\]
+The value \(g(A_0)\) depends on only finitely many derivatives, those prescribed
+by the Jordan blocks.  Montel's theorem therefore makes the supremum a
+maximum.  Lemma~\ref{lem:complexfacts} replaces an extremizer by a finite
+Blaschke product composed with a Riemann map, without changing \(g(A_0)\).
+
+\begin{Lemma}[Strict domain monotonicity]\label{lem:strict-domain}
+Let \(\Omega_0\subsetneq\Omega_1\) be bounded convex domains and suppose
+\(\spec(A_0)\subset\Omega_0\).  If \(\psi_{\Omega_1}(A_0)>1\), then
+\[
+ \psi_{\Omega_0}(A_0)>\psi_{\Omega_1}(A_0).
+\]
+\end{Lemma}
+
+\begin{proof}
+Monotonicity in the displayed direction is immediate by restriction.  Suppose
+equality held, with common value \(c>1\), and choose a norm-one extremizer \(g\)
+on \(\Omega_1\).  Its norm on \(\Omega_0\) must be exactly \(1\), since otherwise
+rescaling its restriction gives a value larger than \(c\).  Thus it is also an
+extremizer on \(\Omega_0\).
+
+For either domain, interpolate the finite jet of \(g\) that determines \(g(A_0)\)
+with least possible norm.  A norm smaller than \(1\) would contradict
+extremality after rescaling.  The uniqueness part of
+Lemma~\ref{lem:complexfacts} says that \(g\) is a finite Blaschke product
+relative to both domains.  Hence it has modulus \(1\) on each boundary.
+
+Choose \(a\in\Omega_0\).  Along every ray from \(a\), convexity gives an exit
+radius for each domain.  Since the domains differ, on some ray the first exit
+occurs strictly earlier; hence there is
+\(\xi\in\partial\Omega_0\cap\Omega_1\).  At this interior point of \(\Omega_1\),
+\(|g(\xi)|=1\).  The maximum-modulus principle makes \(g\) constant, which
+would give \(c=1\), a contradiction.
+\end{proof}
+
+\section{Reduction to an interior-spectrum equality pair}
+
+\begin{Lemma}[Boundary-spectrum induction]\label{lem:induction}
+Assume Theorem~\ref{thm:main} has been proved in every size smaller than \(N\).
+Let \(A\in M_N(\C)\), let \(K=W(A)\), and suppose \(\psi(A)=2\).  Then either
+\(K\) is a nondegenerate closed disk, or
+\[
+ \spec(A)\subset\Int K.                               \tag{4.1}
+\]
+\end{Lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:foundation}, \(K\) has nonempty interior.  Choose
+polynomials \(p_j\) such that
+\[
+ \max_K|p_j|=1,\qquad \|p_j(A)\|\longrightarrow2.      \tag{4.2}
+\]
+Suppose \(A\) has a boundary eigenvalue.  Lemma~\ref{lem:boundary-eigen} gives
+\(A\simeq A_\partial\oplus A_1\), where \(A_\partial\) is diagonal with
+spectrum on \(\partial K\) and \(\spec(A_1)\subset\Int K\).  The
+\(A_\partial\)-block of \(p_j(A)\) has norm at most
+\(1\), so
+\[
+ \|p_j(A_1)\|\longrightarrow2.                        \tag{4.3}
+\]
+In particular \(A_1\) is nonempty.  Since \(W(A_1)\subset K\), (4.3) and
+Proposition~\ref{prop:sharp} give \(\psi(A_1)=2\).  Its size is smaller than
+\(N\), so induction says that
+\[
+ K_1:=W(A_1)
+\]
+is a closed disk of positive radius.
+
+There is one more necessary peeling step.  Apply
+Lemma~\ref{lem:boundary-eigen} to \(A_1\) relative to \(K_1\):
+\[
+ A_1\simeq A_{\partial,1}\oplus A_2,
+\]
+where \(A_{\partial,1}\) is a finite diagonal block on \(\partial K_1\) and
+\(\spec(A_2)\subset\Int K_1\).  The same sequence (4.2) is bounded by \(1\) at
+the eigenvalues of \(A_{\partial,1}\), all of which lie in \(K\), so
+\(\|p_j(A_2)\|\to2\).  Thus \(A_2\) is nonempty.
+
+Write \(\Lambda_1=\spec(A_{\partial,1})\).  Since
+\[
+ K_1=W(A_1)=\conv(\Lambda_1\cup W(A_2)),
+\]
+every extreme point of \(K_1\) belongs to the compact set
+\(\Lambda_1\cup W(A_2)\).  Here is a direct verification of this last elementary
+fact: if an extreme point of the convex hull of a compact set were not in the
+set, a finite convex representation with at least two distinct points would
+write it as a nontrivial segment point.  The circle \(\partial K_1\) has
+infinitely many extreme points and \(\Lambda_1\) is finite.  Hence
+\(\partial K_1\setminus\Lambda_1\subset W(A_2)\); closedness and convexity of
+\(W(A_2)\) give
+\[
+ W(A_2)=K_1.                                           \tag{4.4}
+\]
+
+Let \(\Omega_0=\Int K_1\) and \(\Omega_1=\Int K\).  The polynomial sequence and
+Proposition~\ref{prop:sharp} show
+\[
+ \psi_{\Omega_0}(A_2)=\psi_{\Omega_1}(A_2)=2.          \tag{4.5}
+\]
+Indeed the lower bounds follow from (4.2)--(4.4), while the upper bounds are
+the relative estimate (3.4).  If \(K_1\subsetneq K\), then
+\(\Omega_0\subsetneq\Omega_1\), and Lemma~\ref{lem:strict-domain} contradicts
+(4.5).  Therefore \(K_1=K\), and \(K\) is the asserted disk.  If this conclusion
+does not occur, \(A\) has no boundary eigenvalue, which is (4.1).
+\end{proof}
+
+\begin{Lemma}[The holomorphic extremizer]\label{lem:extremizer}
+Suppose \(K=W(A)\) has nonempty interior and
+\(\spec(A)\subset\Omega=\Int K\).  If \(\psi(A)=2\), there is a nonconstant
+\[
+ f=\mathcal B\circ\phi\in A(K),
+\]
+where \(\phi:\Omega\to\D\) is conformal and \(\mathcal B\) is a finite
+Blaschke product,
+such that
+\[
+ \|f\|_K=1,\qquad |f|=1\text{ on }\partial K,\qquad
+ \|f(A)\|=2.                                          \tag{4.6}
+\]
+\end{Lemma}
+
+\begin{proof}
+Normalized polynomials witnessing \(\psi(A)=2\) show
+\(\psi_\Omega(A)\geq2\), and Proposition~\ref{prop:sharp} gives the reverse
+inequality.  Montel compactness, followed by convergence of the finitely many
+spectral jets, gives a norm-one \(H^\infty(\Omega)\) maximizer.  Apply the
+finite Schur algorithm in Lemma~\ref{lem:complexfacts} to the jet that
+determines its matrix value.  It supplies \(\mathcal B\circ\phi\) with the same matrix
+value.  The boundary extension of \(\phi\) puts this function in \(A(K)\) and
+gives boundary modulus \(1\).  It cannot be constant because a constant matrix
+has norm at most \(1\).
+\end{proof}
+
+\section{From equality to a rational inner function}
+
+We first locate an analytic boundary arc.
+
+\begin{Lemma}[A curved numerical-range arc]\label{lem:arc}
+If \(K=W(A)\) has interior, \(\spec(A)\subset\Int K\), and \(K\) is not a
+polygon, then \(\partial K\) contains an open real-analytic arc on which every
+supporting line exposes one point and the curvature is positive.
+Moreover, under \(\spec(A)\subset\Int K\), \(K\) cannot be a polygon.
+\end{Lemma}
+
+\begin{proof}
+Put
+\[
+ \mathcal H(\theta)=\Rea(e^{-i\theta}A),\qquad
+ h_A(\theta)=\lambda_{\max}(\mathcal H(\theta)).
+\]
+Rellich's analytic perturbation theorem~\cite{Rellich1937} shows that the roots
+of the characteristic polynomial of the analytic Hermitian pencil
+\(\mathcal H(\theta)\) can locally be labeled by real-analytic functions.  One direct
+proof is to split the spectral projections by small Cauchy circles and then
+diagonalize the resulting analytic Hermitian blocks; repeated identical
+branches are merged.  Two distinct analytic algebraic branches have only
+finitely many crossings on the circle.  Thus the circle has a finite
+partition into intervals on which \(h_A\) is analytic.
+
+At a differentiability point, the exposed boundary point is
+\[
+ \sigma(\theta)=e^{i\theta}\bigl(h_A(\theta)+ih_A'(\theta)\bigr),\qquad
+ \sigma'(\theta)=ie^{i\theta}\bigl(h_A(\theta)+h_A''(\theta)\bigr). \tag{5.1}
+\]
+The first identity follows by differentiating the top Rayleigh quotient; the
+second follows by differentiation.  Convexity gives
+\(h_A+h_A''\geq0\).  If this function vanished identically on every analytic
+interval, \(\sigma\) would be constant on each interval and \(K\) would be a
+polygon.  Otherwise analyticity supplies a subinterval on which
+\(h_A+h_A''>0\).  Formula (5.1) then gives the required regular, positively curved
+arc.  Differentiability of the support function makes the exposed face a
+singleton there.
+
+It remains to exclude a polygon when the spectrum is interior.  Let
+\(\lambda\) be a vertex and let a unit vector \(\upsilon\) realize
+\(\upsilon^*A\upsilon=\lambda\).  Two linearly independent supporting normals \(n_1,n_2\)
+at the vertex give
+\[
+ \Rea(\overline{n_j}A)\upsilon
+ =\Rea(\overline{n_j}\lambda)\upsilon
+ \quad(j=1,2).
+\]
+The two independent real-linear equations imply
+\(A\upsilon=\lambda\upsilon\) and
+\(A^*\upsilon=\overline\lambda\upsilon\).  Thus \(\lambda\) is a
+boundary eigenvalue, contradicting \(\spec(A)\subset\Int K\).
+\end{proof}
+
+\begin{Proposition}[Rational collapse]\label{prop:rational}
+Under the hypotheses and notation of Lemma~\ref{lem:extremizer}, let \(x,y\)
+be the equality vectors from Proposition~\ref{prop:equality-data}.  Then the
+function \(f\) is rational on \(\Omega\).  More precisely, if
+\[
+ a(z)=x^*(zI-A)^{-1}x,\qquad c(z)=y^*(zI-A)^{-1}x,
+\]
+then
+\[
+ c(z)f(z)=2a(z)                                       \tag{5.2}
+\]
+as an identity of meromorphic functions on \(\Omega\).  Equivalently,
+\(f=2a/c\) wherever the quotient is defined, and then everywhere after
+removable cancellation.
+After cancellation, \(f=U/V\) for coprime polynomials with
+\[
+ \deg U>\deg V.                                       \tag{5.3}
+\]
+\end{Proposition}
+
+\begin{proof}
+Choose the arc from Lemma~\ref{lem:arc}; it avoids the finite spectrum.  At an
+almost-everywhere point \(\sigma\) of that arc, let \(\mathfrak n\) be its outward
+normal, \(R=(\sigma I-A)^{-1}\), and
+\[
+ \Delta_\sigma=\Rea\bigl(\overline{\mathfrak n}(\sigma I-A)\bigr)\succeq0.
+\]
+Equations (3.5) and (3.9) imply
+\[
+ \Delta_\sigma R\bigl(y-f(\sigma)x\bigr)=0.           \tag{5.4}
+\]
+Indeed, squaring the norm in (3.9) and using
+\(\mathcal P=\pi^{-1}R^*\Delta_\sigma R\) first gives
+\(\Delta_\sigma^{1/2}R(y-f(\sigma)x)=0\), and hence (5.4).
+The vector
+\(r_\sigma=R(y-f(\sigma)x)\) is nonzero: \(R\) is invertible, while the
+orthonormality of \(x,y\) makes \(y-f(\sigma)x\neq0\).  It is therefore a top
+support eigenvector.  The exposed point is unique, so
+\(r_\sigma^*Ar_\sigma=\sigma\|r_\sigma\|^2\).  Since
+\((\sigma I-A)r_\sigma=y-f(\sigma)x\), taking a scalar product and then conjugating
+gives
+\[
+ \bigl(y-f(\sigma)x\bigr)^*
+ R\bigl(y-f(\sigma)x\bigr)=0.                         \tag{5.5}
+\]
+
+The resolvent commutes with \(T=f(A)\).  Relations (3.8) give, for every
+\(z\notin\spec(A)\),
+\[
+ x^*R_z y=0,\qquad y^*R_z y=x^*R_zx=a(z).             \tag{5.6}
+\]
+Expanding (5.5), using \(|f(\sigma)|=1\) and (5.6), yields
+\[
+ 2a(\sigma)-f(\sigma)c(\sigma)=0                     \tag{5.7}
+\]
+almost everywhere on the arc.  Both sides are continuous there, so (5.7)
+holds on the whole arc.  On a collar of this arc the function \(cf-2a\) is
+analytic, continuous to the arc, and zero there, because the spectrum is a
+positive distance away.  The arc is regular and real analytic, so a local
+biholomorphic coordinate flattens it to a line segment; convexity places
+\(\Omega\) on one side.  Extend \(cf-2a\) by zero to the other side.  The
+extension is continuous, and Morera's theorem makes it analytic.  The identity
+theorem first gives \(cf-2a=0\) in an interior collar.  The punctured
+domain \(\Omega\setminus\spec(A)\) is connected; applying the identity theorem
+there proves \(cf-2a=0\) throughout it, hence as a meromorphic identity on
+\(\Omega\).  Since \(a(z)=z^{-1}+O(z^{-2})\) at infinity, \(a\) is not the
+zero rational function; the identity therefore also shows that \(c\) is not
+identically zero.  This proves (5.2).
+
+Write
+\[
+ a(z)=\frac{x^*\adj(zI-A)x}{\det(zI-A)},\qquad
+ c(z)=\frac{y^*\adj(zI-A)x}{\det(zI-A)}.
+\]
+The numerator of \(a\) has degree exactly \(N-1\), with leading coefficient
+\(1\).  Since \(x^*y=0\), the numerator of \(c\) has degree at most \(N-2\).
+Canceling a common polynomial from numerator and denominator preserves the
+strict degree difference, proving (5.3).
+\end{proof}
+
+\section{The full lemniscate is the boundary}
+
+\begin{Lemma}[The extremal state]\label{lem:state}
+With the notation above, the functional
+\[
+ L(h)=x^*h(A)x,\qquad h\in A(K),
+\]
+is a unital positive state: if \(\Rea h\geq0\) on \(K\), then
+\(\Rea L(h)\geq0\), and \(\|L\|=L(1)=1\).  Consequently there is a probability
+measure \(\mu\) on \(K\) such that
+\[
+ L(h)=\int_Kh(\zeta)\,d\mu(\zeta)\qquad(h\in A(K)).    \tag{6.1}
+\]
+\end{Lemma}
+
+\begin{proof}
+If \(\Rea h\geq0\), then \(f_t=f e^{-th}\) has supremum norm at most \(1\) for
+\(t\geq0\).  Since \(f\) is extremal and \(Tx=2y\),
+\begin{align*}
+ 0&\geq\left.\frac d{dt}\right|_{0+}\|f_t(A)x\|^2\\
+  &=-2\Rea\bigl((Tx)^*T h(A)x\bigr)
+   =-8\Rea\bigl(y^*h(A)y\bigr)
+   =-8\Rea L(h),
+\end{align*}
+where the last equality is (3.11).  Thus \(L\) is positive on real parts and
+\(L(1)=1\).  If \(\|h\|_K\leq1\), apply positivity to
+\(1-e^{i\theta}h\) for every \(\theta\) to get \(|L(h)|\leq1\).  Hence
+\(\|L\|=1\).
+
+Extend \(L\) from the unital function space \(A(K)\) to \(C(K)\) by the
+norm-preserving Hahn--Banach theorem.  A norm-one functional taking \(1\) to
+\(1\) is positive: applying its norm bound to \(1+it g\), with \(g\) real and
+letting \(t\to0\), first makes its value on \(g\) real; applying it to
+\(0\leq g\leq1\) then gives a value in \([0,1]\).  The elementary Riesz
+representation construction (define the mass of an open set by suprema of
+continuous functions supported in it) gives a probability measure \(\mu\)
+and (6.1).
+\end{proof}
+
+\begin{Lemma}[Zeros of the transfer function]\label{lem:zeros}
+Let \(f=U/V\) be the reduced rational function from
+Proposition~\ref{prop:rational}.  Then every finite zero of \(U\) lies in
+\(\Omega\), every zero of \(V\) lies outside \(K\), and \(f(\infty)=\infty\).
+\end{Lemma}
+
+\begin{proof}
+For \(z\notin K\), the function \(\zeta\mapsto(z-\zeta)^{-1}\) lies in
+\(A(K)\).  Thus (6.1) gives
+\[
+ a(z)=\int_K\frac{d\mu(\zeta)}{z-\zeta}.              \tag{6.2}
+\]
+Strict separation of \(z\) from the convex set \(K\) supplies a unit complex
+number \(\eta\) such that
+\(\Rea(\overline\eta(z-\zeta))>0\) for every \(\zeta\in K\).
+Therefore
+\[
+ \Rea\bigl(\eta a(z)\bigr)
+ =\int_K\Rea\frac{\eta}{z-\zeta}\,d\mu(\zeta)>0
+\]
+because, on writing \(z-\zeta=\eta w\), the separation inequality says
+\(\Rea w>0\), and then
+\(\Rea(\eta/(z-\zeta))=\Rea(1/w)>0\).  In particular \(a(z)\neq0\) off \(K\).
+
+The reduced numerator \(U\) of \(f=2a/c\) divides the numerator of \(a\), so it has
+no zero off \(K\).  It has no zero on \(\partial K\), where \(|f|=1\), and
+hence all its zeros lie in \(\Omega\).  A reduced pole cannot lie in
+\(\Omega\), where \(f\) is holomorphic, or on \(\partial K\), where \(f\) has
+a bounded continuous inner limit.  Thus all poles lie outside \(K\).
+Finally (5.3) says exactly that \(f(\infty)=\infty\).
+\end{proof}
+
+\begin{Proposition}[Full-level identity]\label{prop:full-level}
+For the reduced rational extremizer \(f=U/V\),
+\[
+ \{z\in\C:|f(z)|<1\}=\Omega,\qquad
+ \{z\in\C:|f(z)|=1\}=\partial K.                      \tag{6.3}
+\]
+Moreover \(f'\) does not vanish on \(\partial K\), and \(\partial K\) is a
+smooth real-analytic strictly convex Jordan curve.
+\end{Proposition}
+
+\begin{proof}
+The domain \(\Omega\) is a component of
+\(\mathcal O:=\{|f|<1\}\).  Indeed, \(|f|<1\) in \(\Omega\) and \(|f|=1\)
+on \(\partial K\), so a path in \(\mathcal O\) cannot leave \(K\).  Every
+component \(\mathcal O_0\) is bounded because \(f(\infty)=\infty\), and it
+contains a zero of \(f\).  Otherwise its compact closure would avoid every
+zero and pole of \(f\); hence \(1/f\) would be holomorphic on a neighborhood of
+\(\overline{\mathcal O_0}\), equal in modulus to \(1\) on the boundary, and
+strictly larger than \(1\) inside.  Its maximum would occur in the interior,
+contrary to the maximum-modulus principle.  Lemma~\ref{lem:zeros}
+puts every zero in \(\Omega\), so no component other than \(\Omega\) exists.
+This proves the first identity.
+
+The boundary of \(\mathcal O\) is contained in \(\{|f|=1\}\).  Conversely, if
+\(|f(z_0)|=1\), the open mapping theorem says that every neighborhood of
+\(z_0\) contains points where \(|f|<1\).  Thus \(z_0\in\partial\mathcal O\), proving
+the second identity.
+
+If \(f'\) vanished to order \(k-1\geq1\) at a level point, then a local
+analytic logarithm of \(f/f(z_0)\) would start with
+\(c(z-z_0)^k\).  Its zero-real-part set would have \(2k\geq4\) local rays.
+That is impossible for the boundary of a convex body, which is locally a
+Jordan arc.  Hence \(f'\neq0\) on the level, and the implicit-function theorem
+makes the boundary real analytic and smooth.
+
+Finally suppose that the boundary contained a nontrivial segment of a real
+line \(z=z_0+t\xi\), \(t\in\mathbb R\), \(\xi\neq0\).  The expression
+\[
+ |U(z_0+t\xi)|^2-|V(z_0+t\xi)|^2
+\]
+is a polynomial in the real variable \(t\).  Its vanishing on an interval
+would make it vanish for every real \(t\).  Since coprime one-variable
+polynomials have no common zero, the full-level identity would then put the
+entire unbounded line in \(\partial K\), contradicting compactness.  Thus the
+boundary has no nontrivial segment, which for a compact convex body is
+exactly strict convexity.
+\end{proof}
+
+\section{The algebraic tangent argument}
+
+The Hermitian determinant below is the line-coordinate polynomial introduced
+by Kippenhahn~\cite{Kippenhahn1951}.  We use only projective duality and
+hyperbolicity.
+
+\begin{Proposition}[A convex rational lemniscate of numerical-range type is a circle]\label{prop:circle}
+Let \(K\) be a compact convex body whose boundary is the full level set
+\[
+ \partial K=\{z\in\C:|U(z)/V(z)|=1\},                 \tag{7.1}
+\]
+where \(U,V\) are coprime polynomials, \(\deg U>\deg V\), and the level is a
+smooth strictly convex Jordan curve.  Suppose that every tangent line to an
+open boundary arc belongs to the projective curve
+\[
+ \det(sI+u\mathsf H+v\mathsf J)=0                    \tag{7.2}
+\]
+for two Hermitian matrices \(\mathsf H,\mathsf J\).  Then \(\partial K\) is a
+circle.
+\end{Proposition}
+
+\begin{proof}
+Write \(z=X+iY\), \(w=X-iY\), and
+\(S^\#(w)=\overline{S(\overline w)}\) for a polynomial \(S\).
+For a homogenization \(S_h(w,Z)\), the notation \(S_h^\#\) means
+coefficientwise conjugation, with \(w,Z\) left unchanged.
+We use primal coordinates \([X:Y:Z]\); a line
+\(sZ+uX+vY=0\) has dual coordinates \([s:u:v]\).  Thus, in vector
+incidence formulas below, put
+\(\mathbf z=(Z,X,Y)^{\mathsf T}\) and
+\(\boldsymbol\ell=(s,u,v)^{\mathsf T}\).
+Let \(d=\deg U\), \(e=\deg V<d\), and homogenize the real lemniscate polynomial
+to degree \(2d\):
+\[
+ \mathscr F(X,Y,Z)=
+ U_h(X+iY,Z)U_h^\#(X-iY,Z)
+ -Z^{2(d-e)}V_h(X+iY,Z)V_h^\#(X-iY,Z).               \tag{7.3}
+\]
+Here \(U_h,V_h\) are the usual homogenizations to their own degrees.
+The boundary lies in the regular locus of \(\mathscr F=0\).  In fact, at
+\(Z=1\),
+\[
+ \mathscr F=|V|^2(|f|^2-1),\qquad
+ \partial_z\mathscr F=|V|^2 f'\overline f
+ \quad\hbox{on }|f|=1.
+\]
+Here \(V\neq0\) and \(f'\neq0\) on the level by
+Proposition~\ref{prop:full-level}.  The smooth connected curve \(\partial K\)
+therefore lies in one complex irreducible factor \(\mathscr C\) of
+\(\mathscr F\).  Locally only one factor can vanish at a regular point, and
+connectedness keeps the same factor along the boundary.  Conjugation preserves
+this factor because it contains a real arc, so its equation can be chosen real.
+
+Every real affine point of \(\mathscr C\) is a real zero of (7.3), hence is on
+the full level (7.1); coprimality prevents \(U,V\) from vanishing there
+simultaneously.  Thus
+\[
+ \mathscr C(\mathbb R)=\partial K
+\]
+in the affine plane.  There are no additional real points at infinity,
+because at \(Z=0\)
+\[
+ \mathscr F(X,Y,0)=|\operatorname{lc}(U)|^2
+                    (X^2+Y^2)^d,                    \tag{7.4}
+\]
+which has no real projective zero.  Therefore the real projective locus of
+\(\mathscr C\) is exactly the one oval \(\partial K\).
+
+Let \(\mathscr C^*\) be the projective dual curve, the Zariski closure of the
+tangent lines to \(\mathscr C\), and let
+\(\mathscr Q(s,u,v)\) be its irreducible homogeneous equation, chosen with
+real coefficients.  Tangency on an open real arc and (7.2) imply
+\[
+ \mathscr Q(s,u,v)\ \hbox{divides}\ 
+ \det(sI+u\mathsf H+v\mathsf J).                     \tag{7.5}
+\]
+Indeed, that real-analytic arc is Zariski dense in the irreducible curve
+\(\mathscr C^*\).  The determinant therefore vanishes on all of
+\(\mathscr C^*\).  Its homogeneous prime ideal is the principal ideal
+\((\mathscr Q)\), which proves the divisibility.
+
+Set \(\mathbf e=[1:0:0]\).  The determinant in (7.5) equals \(1\) at
+\(\mathbf e\), so \(\mathscr Q(\mathbf e)\neq0\).  For real \(u,v\), all roots
+in \(s\) of the determinant are real, because they are the negatives of the
+eigenvalues of the Hermitian matrix \(u\mathsf H+v\mathsf J\).  Hence every root of
+\(\mathscr Q(s,u,v)\) is real.  In other words, \(\mathscr Q\) is hyperbolic
+with respect to \(\mathbf e\).
+
+Let \(m=\deg\mathscr Q\).  Choose a generic real direction \([u:v]\).  Since
+\(\mathscr Q(\mathbf e)\neq0\), the coefficient of \(s^m\) in
+\(\mathscr Q(s,u,v)\) is nonzero.  Here are the finite exceptional sets being
+avoided.  On the normalization of \(\mathscr C\), the Gauss map to
+\(\mathscr C^*\) is generically one-to-one by projective biduality in
+characteristic zero.  Its ramification locus, the singular locus of
+\(\mathscr C^*\), and the tangent images of the finitely many singular points
+of \(\mathscr C\) are finite.  Avoid their projections to \([u:v]\), as well
+as the discriminant directions of \(\mathscr Q(s,u,v)\).  The discriminant is
+not identically zero because the generic projection of an irreducible curve is
+separable in characteristic zero.  The specialization then has \(m\) distinct
+roots, and hyperbolicity makes the corresponding dual points
+\(\ell_j=[s_j:u:v]\) real and smooth.
+
+Biduality gives each \(\ell_j\) a unique contact point on the smooth locus of
+\(\mathscr C\).  In the standard primal coordinate order this point is
+\[
+ [X:Y:Z]=[\mathscr Q_u(\ell_j):\mathscr Q_v(\ell_j):
+   \mathscr Q_s(\ell_j)],
+\]
+so it is real.  It therefore belongs to
+\(\mathscr C(\mathbb R)=\partial K\).
+
+A smooth strictly convex oval has
+exactly two tangent lines with a prescribed unoriented normal \([u:v]\): the
+support line at the maximum and the one at the minimum of \(uX+vY\).
+The preceding count shows that there are at most two roots; conversely these
+two support lines belong to \(\mathscr C^*\), so both are roots.  Consequently
+\[
+ m=2.                                                 \tag{7.6}
+\]
+Thus \(\mathscr C^*\) is an irreducible conic and is nonsingular.  Writing its
+equation as
+\(\boldsymbol\ell^{\mathsf T}\Sigma\boldsymbol\ell=0\), with an invertible
+symmetric \(3\times3\) matrix \(\Sigma\), its tangent at
+\(\boldsymbol\ell\) corresponds to the primal point
+\(\Sigma\boldsymbol\ell\).  The envelope of those tangents is
+\(\mathbf z^{\mathsf T}\Sigma^{-1}\mathbf z=0\), also a conic.  Since it
+contains a Zariski-dense
+arc of \(\mathscr C\), it is \(\mathscr C\).
+
+Finally, because \(\mathscr C\) divides \(\mathscr F\), every point of this
+conic at infinity must be one of
+\[
+ [1:i:0],\qquad[1:-i:0].
+\]
+A real irreducible conic has two points at infinity counted with
+multiplicity, and conjugation exchanges these two circular points.  It
+therefore contains both.  Its real homogeneous equation has the form
+\[
+ \alpha(X^2+Y^2)+\beta XZ+\gamma YZ+\delta Z^2=0,
+ \qquad \alpha\neq0.
+\]
+Completing squares shows that its nonempty compact real oval is a circle.
+\end{proof}
+
+\section{Proof of the main theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+We use induction on \(N\).  For \(N=1\), and more generally whenever the
+numerical range has empty interior, Lemma~\ref{lem:foundation} gives
+\(\psi(A)=1\), so the hypothesis never occurs.
+
+Assume the result below size \(N\), and let \(A\in M_N(\C)\) satisfy
+\(\psi(A)=2\).  Put \(K=W(A)\).  It has nonempty interior.  By
+Lemma~\ref{lem:induction}, either \(K\) is already a nondegenerate disk or
+\(\spec(A)\subset\Omega=\Int K\).  Consider the second case.
+
+Lemma~\ref{lem:extremizer} supplies a finite-Blaschke extremizer
+\(f\in A(K)\) satisfying (4.6).  Proposition~\ref{prop:equality-data}
+supplies \(x,y\) and the exact
+boundary-kernel identity.  Since an interior-spectrum numerical range cannot
+be a polygon, Lemma~\ref{lem:arc} supplies a curved analytic boundary arc.
+On that arc, Proposition~\ref{prop:rational} proves
+\[
+ f(z)=\frac{U(z)}{V(z)},\qquad \deg U>\deg V,
+\]
+after cancellation of the meromorphic transfer identity (5.2).
+
+The variation \(fe^{-th}\) makes \(x^*h(A)x\) a positive state
+(Lemma~\ref{lem:state}).  Its Cauchy transform has no zero outside the convex
+set \(K\), so every zero of the reduced numerator \(U\) lies in \(\Omega\),
+while the poles lie outside \(K\).  The degree inequality makes \(f\) blow up
+at infinity.  Proposition~\ref{prop:full-level} then gives
+\[
+ \{|f|<1\}=\Omega,\qquad \{|f|=1\}=\partial K,
+\]
+and makes this boundary a smooth strictly convex rational lemniscate.
+
+For \(H_A=\Rea A\) and \(J_A=\Ima A\), every supporting tangent line
+\(s+uX+vY=0\) to \(W(A)\) satisfies
+\[
+ \det(sI+uH_A+vJ_A)=0:
+\]
+the support matrix is semidefinite and has a unit vector attaining the
+boundary point in its kernel.  All hypotheses of
+Proposition~\ref{prop:circle} now hold.  It follows that \(\partial K\) is a
+circle.  Compactness and convexity make \(K\) the filled closed disk bounded
+by that circle.
+
+The disk has positive radius because \(K\) has nonempty planar interior.
+Writing its center and radius as \(\gamma\) and \(\rho\) gives
+\[
+ W(A)=\{z:|z-\gamma|\leq\rho\},\qquad \rho>0,
+\]
+which completes the induction and the proof.
+\end{proof}
+
+\funding{This research received no external funding.}
+\institutionalreview{Not applicable.}
+\informedconsent{Not applicable.}
+\dataavailability{No data were created or analyzed in this study.}
+\conflictsofinterest{The author declares no conflict of interest.}
+
+\reftitle{References}
+
+\begin{thebibliography}{99}
+
+\bibitem[Crouzeix(2004)]{Crouzeix2004}
+Crouzeix, M. Bounds for analytical functions of matrices.
+\emph{Integral Equations Oper. Theory} \textbf{2004}, \emph{48}, 461--477.
+\url{https://doi.org/10.1007/s00020-002-1188-6}.
+
+\bibitem[Delyon and Delyon(1999)]{DelyonDelyon1999}
+Delyon, B.; Delyon, F. Generalization of von Neumann's spectral sets and
+integral representation of operators. \emph{Bull. Soc. Math. France}
+\textbf{1999}, \emph{127}, 25--41.
+\url{https://doi.org/10.24033/bsmf.2340}.
+
+\bibitem[Crouzeix and Palencia(2017)]{CrouzeixPalencia2017}
+Crouzeix, M.; Palencia, C. The numerical range is a
+\((1+\sqrt{2})\)-spectral set. \emph{SIAM J. Matrix Anal. Appl.}
+\textbf{2017}, \emph{38}, 649--655.
+\url{https://doi.org/10.1137/17M1116672}.
+
+\bibitem[Lorist and Schwenninger(2026)]{LoristSchwenninger2026}
+Lorist, E.; Schwenninger, F.L. A solution to Crouzeix's conjecture.
+\emph{arXiv} \textbf{2026}, arXiv:2608.03841v2, 7~pp.
+\url{https://doi.org/10.48550/arXiv.2608.03841}.
+
+\bibitem[Rellich(1937)]{Rellich1937}
+Rellich, F. St\"orungstheorie der Spektralzerlegung. I. Mitteilung.
+Analytische St\"orung der isolierten Punkteigenwerte eines beschr\"ankten
+Operators. \emph{Math. Ann.} \textbf{1937}, \emph{113}, 600--619.
+\url{https://doi.org/10.1007/BF01571652}.
+
+\bibitem[Kippenhahn(1951)]{Kippenhahn1951}
+Kippenhahn, R. \"Uber den Wertevorrat einer Matrix. \emph{Math. Nachr.}
+\textbf{1951}, \emph{6}, 193--228.
+\url{https://doi.org/10.1002/mana.19510060306}.
+
+\end{thebibliography}
+
+\end{document}
