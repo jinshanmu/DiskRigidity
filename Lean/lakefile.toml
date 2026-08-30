@@ -1,0 +1,21 @@
+name = "disk-rigidity"
+version = "0.1.0"
+defaultTargets = ["DiskRigidity"]
+lintDriver = "batteries/runLinter"
+lintDriverArgs = ["DiskRigidity"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+pp.unicode.fun = true
+weak.linter.mathlibStandardSet = true
+warningAsError = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.33.1"
+
+[[lean_lib]]
+name = "DiskRigidity"

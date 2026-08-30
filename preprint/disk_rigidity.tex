@@ -32,7 +32,7 @@
 \Author{Anonymous}
 \AuthorNames{Anonymous}
 \address{}
-\abstract{For a complex matrix \texorpdfstring{\(A\)}{A}, let \texorpdfstring{\(\psi(A)\)}{psi(A)} be the norm of the polynomial functional calculus on its numerical range. We prove that \texorpdfstring{\(\psi(A)=2\)}{psi(A)=2} only when the numerical range is a nondegenerate closed disk. The proof first extracts the equality conditions in the sharp double-layer estimate. After boundary eigenvalues are removed, a finite-Blaschke extremizer satisfies an exact boundary-kernel identity. On a curved exposed arc this identity makes the extremizer rational. An extremal state then places every zero of its reduced numerator inside the numerical range and every pole outside; consequently its full unit lemniscate coincides with the boundary of the numerical range. The dual of that algebraic boundary divides the Hermitian Kippenhahn determinant. Hyperbolicity and strict convexity force the dual curve to have degree two, and its points at infinity force the resulting conic to be a circle.}
+\abstract{For a complex matrix \texorpdfstring{\(A\)}{A}, let \texorpdfstring{\(\psi(A)\)}{psi(A)} be the norm of the polynomial functional calculus on its numerical range. We prove that \texorpdfstring{\(\psi(A)=2\)}{psi(A)=2} only when the numerical range is a nondegenerate closed disk. The proof first extracts the equality conditions in the sharp double-layer estimate. After boundary eigenvalues are removed, a finite-Blaschke extremizer satisfies an exact boundary-kernel identity. On a curved exposed arc this identity makes the extremizer rational. A direct resolvent argument then places every zero of its reduced numerator inside the numerical range and every pole outside; consequently its full unit lemniscate coincides with the boundary of the numerical range. The dual of that algebraic boundary divides the Hermitian Kippenhahn determinant. Hyperbolicity and strict convexity force the dual curve to have degree two, and its points at infinity force the resulting conic to be a circle.}
 \keyword{numerical range; Crouzeix ratio; spectral set; rational lemniscate; hyperbolic polynomial}
 \MSC{47A12; 47A25; 15A60}
 
@@ -50,6 +50,14 @@ For a polynomial \(p\), let \(\|p(A)\|\) be its Euclidean operator norm and put
  \sup\left\{\|p(A)\|:p\in\C[z],
                \max_{z\in W(A)}|p(z)|\leq1\right\}.
 \]
+For a compact convex body \(K\), write
+\[
+ A(K)=\{f\in C(K):f|_{\Int K}\text{ is holomorphic}\},
+\]
+and give \(H^\infty(\Int K)\) its usual supremum norm.  Whenever
+\(\spec(A)\subset\Int K\), the notation \(f(A)\) denotes the standard
+finite-dimensional holomorphic functional calculus, equivalently evaluation
+of any Hermite interpolating polynomial with the required spectral jets.
 This quantity was introduced by Crouzeix in connection with the conjecture
 that \(\psi(A)\leq2\) for every matrix~\cite{Crouzeix2004}.  The integral
 representation behind the modern estimates goes back to Delyon and
@@ -71,7 +79,7 @@ for some \(\gamma\in\C\) and some \(\rho>0\).
 The proof has four steps.  An equality analysis of the sharp bound produces
 two extremal vectors and a pointwise boundary-kernel identity.  A curved
 exposed arc then turns that identity into a rational formula for the
-extremizer.  A positive state identifies its full unit lemniscate with
+extremizer.  A direct resolvent argument identifies its full unit lemniscate with
 \(\partial W(A)\).  Finally, the Kippenhahn determinant converts the tangent
 curve into a hyperbolic factor; a generic contact count shows that this factor
 is a conic, hence a circle.  All scalar matrix coefficients are written as
@@ -91,7 +99,7 @@ normal and \(\psi(A)=1\).
  \psi(\mathcal U^*A\mathcal U)=\psi(A).
 \]
 Also \(W(A^*)=\overline{W(A)}\) and \(\psi(A^*)=\psi(A)\).
-\item For a finite direct sum,
+\item For a finite nonempty direct sum,
 \[
  W\left(\bigoplus_jA_j\right)=\conv\Bigl(\bigcup_jW(A_j)\Bigr),
  \qquad
@@ -233,7 +241,7 @@ For each \(n\), the slack in the estimate preceding (3.1) is
  +\tfrac12\bigl(\|\omega\|^2-\|\mathcal V^*\mathcal M^{*n}\omega\|^2\bigr).
 \]
 All these nonnegative slacks have a positive weighted sum equal to zero.
-Thus, for every (n),
+Thus, for every \(n\),
 \[
  \mathcal V^*\mathcal M^{*n}\omega=2T^{*n}x,
  \qquad
@@ -414,7 +422,8 @@ Nevanlinna--Pick theorem says that such finite data are feasible in the Schur
 class exactly when their generalized Pick matrix is positive semidefinite.
 The Schur recursion, with the final free parameter chosen unimodular, then
 produces a rational inner solution, hence a finite Blaschke product.  If
-\(c_0\) is the least common norm of nonconstant data, the generalized Pick
+\(c_0\) is the least possible interpolation norm for nonconstant data, the
+generalized Pick
 matrix for the data divided by \(c_0\) is singular: positive definiteness would
 persist after a small decrease of \(c_0\).  After redundant jet conditions are
 consolidated, a singular minimal confluent Pick problem has a unique Schur
@@ -742,22 +751,15 @@ Proposition~\ref{prop:rational}.  Then every finite zero of \(U\) lies in
 \end{Lemma}
 
 \begin{proof}
-For \(z\notin K\), the function \(\zeta\mapsto(z-\zeta)^{-1}\) lies in
-\(A(K)\).  Thus (6.1) gives
+For \(z\notin K\), put \(R=(zI-A)^{-1}\).  Then \(a(z)\neq0\).
+Indeed, if \(a(z)=x^*Rx=0\) and \(v=Rx\), then \(v\neq0\) and
+\((zI-A)v=x\).  Taking the scalar product with \(v\) and conjugating gives
 \[
- a(z)=\int_K\frac{d\mu(\zeta)}{z-\zeta}.              \tag{6.2}
+ v^*(zI-A)v=0,
+ \qquad\text{hence}\qquad
+ \frac{v^*Av}{\|v\|^2}=z,
 \]
-Strict separation of \(z\) from the convex set \(K\) supplies a unit complex
-number \(\eta\) such that
-\(\Rea(\overline\eta(z-\zeta))>0\) for every \(\zeta\in K\).
-Therefore
-\[
- \Rea\bigl(\eta a(z)\bigr)
- =\int_K\Rea\frac{\eta}{z-\zeta}\,d\mu(\zeta)>0
-\]
-because, on writing \(z-\zeta=\eta w\), the separation inequality says
-\(\Rea w>0\), and then
-\(\Rea(\eta/(z-\zeta))=\Rea(1/w)>0\).  In particular \(a(z)\neq0\) off \(K\).
+which would put \(z\) in \(W(A)=K\), a contradiction.
 
 The reduced numerator \(U\) of \(f=2a/c\) divides the numerator of \(a\), so it has
 no zero off \(K\).  It has no zero on \(\partial K\), where \(|f|=1\), and
@@ -861,8 +863,11 @@ The boundary lies in the regular locus of \(\mathscr F=0\).  In fact, at
  \partial_z\mathscr F=|V|^2 f'\overline f
  \quad\hbox{on }|f|=1.
 \]
-Here \(V\neq0\) and \(f'\neq0\) on the level by
-Proposition~\ref{prop:full-level}.  The smooth connected curve \(\partial K\)
+Here \(V\neq0\) on the level.  Also \(f'\neq0\) there: if \(f'\) vanished to
+order \(k-1\geq1\) at a level point, a local analytic logarithm of
+\(f/f(z_0)\) would make the level set have \(2k\geq4\) local rays, contrary
+to the hypothesis that it is a smooth Jordan curve.  The smooth connected
+curve \(\partial K\)
 therefore lies in one complex irreducible factor \(\mathscr C\) of
 \(\mathscr F\).  Locally only one factor can vanish at a regular point, and
 connectedness keeps the same factor along the boundary.  Conjugation preserves
@@ -982,9 +987,9 @@ On that arc, Proposition~\ref{prop:rational} proves
 \]
 after cancellation of the meromorphic transfer identity (5.2).
 
-The variation \(fe^{-th}\) makes \(x^*h(A)x\) a positive state
-(Lemma~\ref{lem:state}).  Its Cauchy transform has no zero outside the convex
-set \(K\), so every zero of the reduced numerator \(U\) lies in \(\Omega\),
+The diagonal resolvent coefficient cannot vanish outside \(K\): otherwise
+the inverse equation would realize that exterior point as a numerical value.
+Consequently every zero of the reduced numerator \(U\) lies in \(\Omega\),
 while the poles lie outside \(K\).  The degree inequality makes \(f\) blow up
 at infinity.  Proposition~\ref{prop:full-level} then gives
 \[
@@ -992,7 +997,7 @@ at infinity.  Proposition~\ref{prop:full-level} then gives
 \]
 and makes this boundary a smooth strictly convex rational lemniscate.
 
-For \(H_A=\Rea A\) and \(J_A=\Ima A\), every supporting tangent line
+For \(H_A=(A+A^*)/2\) and \(J_A=(A-A^*)/(2i)\), every supporting tangent line
 \(s+uX+vY=0\) to \(W(A)\) satisfies
 \[
  \det(sI+uH_A+vJ_A)=0:

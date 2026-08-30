@@ -1,0 +1,6 @@
+/preprint/*.aux
+/preprint/*.fdb_latexmk
+/preprint/*.fls
+/preprint/*.log
+/preprint/*.out
+/preprint/*.synctex.gz
