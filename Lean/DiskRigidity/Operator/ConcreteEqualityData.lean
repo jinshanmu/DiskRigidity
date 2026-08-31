@@ -7,13 +7,12 @@ Authors: Disk Rigidity Authors
 module
 
 public import DiskRigidity.Operator.ConvexPolynomialCauchy
-public import DiskRigidity.Operator.FoundationSymmetries
 public import DiskRigidity.Operator.EqualityData
 
 /-!
 # Concrete equality data on the numerical-range boundary
 
-This file instantiates both boundary dilations in Proposition 3.3 with the
+This file instantiates the boundary dilation in Proposition 3.3 with the
 concrete radial arclength boundary of the numerical range.  In particular,
 the almost-everywhere kernel identity is obtained without asking the caller
 for a boundary parametrization, a Cauchy formula, a positive square root, or
@@ -31,52 +30,6 @@ open scoped BoundedContinuousFunction InnerProductSpace Matrix
 namespace DiskRigidity.Operator
 
 variable {n : Type*} [Fintype n] [DecidableEq n]
-
-/-- The spectrum of the adjoint matrix is the complex conjugate of the
-original spectrum. -/
-theorem spectrum_conjTranspose (A : SquareMatrix n) :
-    spectrum ℂ Aᴴ = starRingEnd ℂ '' spectrum ℂ A := by
-  ext z
-  constructor
-  · intro hz
-    refine ⟨starRingEnd ℂ z, ?_, by simp⟩
-    rw [spectrum.mem_iff] at hz ⊢
-    intro hu
-    apply hz
-    have hs := hu.star
-    simpa [Matrix.star_eq_conjTranspose,
-      Algebra.algebraMap_eq_smul_one] using hs
-  · rintro ⟨w, hw, rfl⟩
-    rw [spectrum.mem_iff] at hw ⊢
-    intro hu
-    apply hw
-    have hs := hu.star
-    simpa [Matrix.star_eq_conjTranspose,
-      Algebra.algebraMap_eq_smul_one] using hs
-
-/-- Strict inclusion of the spectrum in the numerical-range interior is
-preserved by adjoints. -/
-theorem spectrum_conjTranspose_subset_interior_numericalRange
-    (A : SquareMatrix n)
-    (hspectrum : spectrum ℂ A ⊆ interior (numericalRange A)) :
-    spectrum ℂ Aᴴ ⊆ interior (numericalRange Aᴴ) := by
-  rw [spectrum_conjTranspose, numericalRange_conjTranspose]
-  change Complex.conjCLE '' spectrum ℂ A ⊆
-    interior (Complex.conjCLE '' numericalRange A)
-  rw [← Complex.conjCLE.isHomeomorph.image_interior]
-  exact Set.image_mono hspectrum
-
-/-- Conjugating an interior point gives an interior point of the adjoint
-numerical range. -/
-theorem star_mem_interior_numericalRange_conjTranspose
-    (A : SquareMatrix n) {c : ℂ}
-    (hc : c ∈ interior (numericalRange A)) :
-    starRingEnd ℂ c ∈ interior (numericalRange Aᴴ) := by
-  rw [numericalRange_conjTranspose]
-  change Complex.conjCLE c ∈
-    interior (Complex.conjCLE '' numericalRange A)
-  rw [← Complex.conjCLE.isHomeomorph.image_interior]
-  exact ⟨c, hc, rfl⟩
 
 /-- The concrete polynomial dilation attached to a compact convex body.
 All boundary and Cauchy data, including the positive square root, are
@@ -112,17 +65,13 @@ def numericalRangePolynomialDilationData
     (isCompact_numericalRange A) Set.Subset.rfl hspectrum p
       (fun _z hz ↦ (norm_eval_le_maxPolynomialModulus A p hz).trans hp)
 
-/-- Proposition 3.3 for a polynomial extremizer, with both concrete
-numerical-range boundaries supplied internally.  The two centers and the
-strict spectral inclusions are ordinary geometric hypotheses; no analytic
-boundary package is assumed. -/
+/-- Proposition 3.3 for a polynomial extremizer, with the concrete
+numerical-range boundary supplied internally. -/
 theorem exists_sharpEqualityData_and_concreteBoundaryKernel
     [Nonempty n] (A : SquareMatrix n) (p : Polynomial ℂ)
-    {c cadj : ℂ}
+    {c : ℂ}
     (hc : c ∈ interior (numericalRange A))
-    (hcadj : cadj ∈ interior (numericalRange Aᴴ))
     (hspectrum : spectrum ℂ A ⊆ interior (numericalRange A))
-    (hspectrumAdj : spectrum ℂ Aᴴ ⊆ interior (numericalRange Aᴴ))
     (hp : maxPolynomialModulus A p ≤ 1)
     (hnorm : ‖polynomialEval p A‖ = 2)
     (hradius : spectralRadius ℂ
@@ -137,30 +86,8 @@ theorem exists_sharpEqualityData_and_concreteBoundaryKernel
       (radialBoundaryArcLengthMeasure (numericalRange A) c) :=
     isFiniteMeasure_radialBoundaryArcLengthMeasure
       (numericalRange_convex A) hc (isCompact_numericalRange A)
-  let _ : IsFiniteMeasure
-      (radialBoundaryArcLengthMeasure (numericalRange Aᴴ) cadj) :=
-    isFiniteMeasure_radialBoundaryArcLengthMeasure
-      (numericalRange_convex Aᴴ) hcadj (isCompact_numericalRange Aᴴ)
-  let q := conjugatePolynomial p
-  have hq : maxPolynomialModulus Aᴴ q ≤ 1 := by
-    simpa only [q, maxPolynomialModulus_conjTranspose_conjugate] using hp
   let P := numericalRangePolynomialDilationData A hc hspectrum p hp
-  let Padj := numericalRangePolynomialDilationData Aᴴ hcadj
-    hspectrumAdj q hq
   let D := P.witness
-  let DadjRaw := Padj.witness
-  have hadj : euclideanOperator (polynomialEval q Aᴴ) =
-      ContinuousLinearMap.adjoint
-        (euclideanOperator (polynomialEval p A)) := by
-    rw [polynomialEval_conjugate_conjTranspose,
-      euclideanOperator_conjTranspose]
-  let Dadj : DilationWitness
-      (K := Lp (EuclideanVector n) 2
-        (radialBoundaryArcLengthMeasure (numericalRange Aᴴ) cadj))
-      (ContinuousLinearMap.adjoint
-        (euclideanOperator (polynomialEval p A))) := by
-    rw [← hadj]
-    exact DadjRaw
   let realization : BoundaryMultiplicationRealization D
       (radialBoundaryArcLengthMeasure (numericalRange A) c) :=
     BoundaryMultiplicationRealization.ofLp D P.boundaryFunction
@@ -170,12 +97,10 @@ theorem exists_sharpEqualityData_and_concreteBoundaryKernel
     simpa only [← matrix_norm_eq_operator_norm] using hnorm
   simpa only [P, realization, BoundaryMultiplicationRealization.ofLp] using
     (exists_sharpEqualityData_and_boundaryKernel
-      (euclideanOperator (polynomialEval p A)) D Dadj realization
+      (euclideanOperator (polynomialEval p A)) D realization
       hoperatorNorm hradius)
 
-/-- Strongest one-matrix form of the concrete polynomial equality theorem.
-The reflected center and the adjoint spectral inclusion are derived rather
-than supplied by the caller. -/
+/-- One-matrix form of the concrete polynomial equality theorem. -/
 theorem exists_sharpEqualityData_and_numericalRangeBoundaryKernel
     [Nonempty n] (A : SquareMatrix n) (p : Polynomial ℂ) {c : ℂ}
     (hc : c ∈ interior (numericalRange A))
@@ -190,9 +115,7 @@ theorem exists_sharpEqualityData_and_numericalRangeBoundaryKernel
         ∀ᵐ t ∂radialBoundaryArcLengthMeasure (numericalRange A) c,
           P.squareRoot.factor t
             (y - P.boundaryFunction t • x) = 0 := by
-  exact exists_sharpEqualityData_and_concreteBoundaryKernel A p hc
-    (star_mem_interior_numericalRange_conjTranspose A hc) hspectrum
-    (spectrum_conjTranspose_subset_interior_numericalRange A hspectrum)
+  exact exists_sharpEqualityData_and_concreteBoundaryKernel A p hc hspectrum
     hp hnorm hradius
 
 end DiskRigidity.Operator

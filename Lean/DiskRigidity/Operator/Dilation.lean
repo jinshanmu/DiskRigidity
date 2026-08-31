@@ -973,7 +973,6 @@ theorem contraction_equality_of_adjoint
 structure DilationEqualityPair (T : H →L[ℂ] H) (x y : H) : Prop where
   map_x : T x = (2 : ℂ) • y
   adjoint_map_x : (T†) x = 0
-  map_y : T y = 0
   adjoint_map_y : (T†) y = (2 : ℂ) • x
 
 /-- The relation `T†T x=4x` immediately gives `T†(Tx/2)=2x`. -/

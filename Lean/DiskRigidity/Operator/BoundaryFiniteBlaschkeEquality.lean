@@ -55,19 +55,14 @@ theorem norm_lt_one_of_eqOn_finiteBlaschke_comp_of_nonconstant
 variable {i : Type*} [TopologicalSpace i] [MeasurableSpace i]
   [OpensMeasurableSpace i] {mu : Measure i}
   [BorelSpace i] [IsFiniteMeasure mu]
-variable {j : Type*} [TopologicalSpace j] [MeasurableSpace j]
-  [OpensMeasurableSpace j] {nu : Measure j}
-  [BorelSpace j] [IsFiniteMeasure nu]
 
 /-- Exact sharp equality and forward boundary-kernel data for a
 boundary-continuous finite-Blaschke extremizer.  Strict spectral radius and
-the complete forward/adjoint dilations are conclusions, not hypotheses. -/
+the complete forward dilation are conclusions, not hypotheses. -/
 theorem exists_sharpEqualityData_and_finiteBlaschkeBoundaryKernel
     [Nonempty n] (A : SquareMatrix n)
     (B : DiskRigidity.Complex.NeighborhoodHolomorphicCauchyBoundary
       A (numericalRange A) mu)
-    (Badj : DiskRigidity.Complex.NeighborhoodHolomorphicCauchyBoundary
-      Aᴴ (numericalRange Aᴴ) nu)
     {c : ℂ} (hc : c ∈ interior (numericalRange A))
     (hspectrum : spectrum ℂ A ⊆ interior (numericalRange A))
     (g phi Bl : ℂ → ℂ)
@@ -96,6 +91,6 @@ theorem exists_sharpEqualityData_and_finiteBlaschkeBoundaryKernel
   have hgStrict : ∀ z ∈ spectrum ℂ A, ‖g z‖ < 1 := fun z hz ↦
     hgInterior z (hspectrum hz)
   exact exists_sharpEqualityData_and_convexDiskAlgebraBoundaryKernel
-    A B Badj hc hspectrum g hgK hg hgOne hgStrict hnorm
+    A B hc hspectrum g hgK hg hgOne hgStrict hnorm
 
 end DiskRigidity.Operator

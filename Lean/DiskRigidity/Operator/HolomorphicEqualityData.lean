@@ -8,7 +8,6 @@ module
 
 public import DiskRigidity.Complex.HolomorphicDoubleLayer
 public import DiskRigidity.Operator.ConcreteEqualityData
-public import Mathlib.Analysis.Calculus.Deriv.Star
 public import Mathlib.MeasureTheory.Integral.DominatedConvergence
 
 /-!
@@ -35,115 +34,9 @@ variable {n : Type*} [Fintype n] [DecidableEq n]
 variable {i : Type*} [TopologicalSpace i] [MeasurableSpace i]
   [OpensMeasurableSpace i] {mu : Measure i}
 
-/-- Reflection of a scalar holomorphic function across the real axis, used
-for the adjoint equality run. -/
+/-- Reflection of a scalar holomorphic function across the real axis. -/
 def reflectedHolomorphicFunction (g : ℂ → ℂ) : ℂ → ℂ :=
   star ∘ g ∘ conj
-
-/-- Every iterated complex derivative commutes with simultaneous conjugation
-of the argument and value. -/
-theorem iteratedDeriv_reflectedHolomorphicFunction
-    (g : ℂ → ℂ) (k : ℕ) :
-    iteratedDeriv k (reflectedHolomorphicFunction g) =
-      reflectedHolomorphicFunction (iteratedDeriv k g) := by
-  induction k with
-  | zero => rfl
-  | succ k ih =>
-      simp only [iteratedDeriv_succ, ih]
-      unfold reflectedHolomorphicFunction
-      exact deriv_star_conj (𝕜 := ℂ) (F := ℂ)
-
-/-- The characteristic polynomial of the adjoint is obtained by conjugating
-all coefficients. -/
-theorem charpoly_conjTranspose (A : SquareMatrix n) :
-    Aᴴ.charpoly = A.charpoly.map (starRingEnd ℂ) := by
-  rw [Matrix.conjTranspose]
-  change (Aᵀ.map (starRingEnd ℂ)).charpoly = _
-  rw [Matrix.charpoly_map, Matrix.charpoly_transpose]
-
-/-- Spectral-jet evaluation intertwines reflected functions and matrix
-adjoints.  This is proved directly from the finite Hermite jets, including
-all algebraic multiplicities. -/
-theorem spectralJetEval_reflected_conjTranspose
-    (A : SquareMatrix n) (g : ℂ → ℂ) :
-    DiskRigidity.Complex.spectralJetEval Aᴴ
-        (reflectedHolomorphicFunction g) =
-      (DiskRigidity.Complex.spectralJetEval A g)ᴴ := by
-  let p := DiskRigidity.Complex.spectralJetPolynomial A g
-  let q := conjugatePolynomial p
-  have hjet : DiskRigidity.Complex.spectralJetEval Aᴴ
-      (reflectedHolomorphicFunction g) =
-      DiskRigidity.Complex.spectralJetEval Aᴴ (fun z ↦ q.eval z) := by
-    apply DiskRigidity.Complex.spectralJetEval_eq_of_iteratedDeriv_eq Aᴴ
-    intro a k
-    have haRoot : Polynomial.IsRoot Aᴴ.charpoly (a : ℂ) := by
-      exact (Polynomial.mem_roots (Matrix.charpoly_monic Aᴴ).ne_zero).mp
-        (Multiset.mem_toFinset.mp a.2)
-    have haSpec : (a : ℂ) ∈ spectrum ℂ Aᴴ :=
-      Matrix.mem_spectrum_iff_isRoot_charpoly.mpr haRoot
-    have hbSpec : starRingEnd ℂ (a : ℂ) ∈ spectrum ℂ A := by
-      rw [spectrum_conjTranspose A] at haSpec
-      obtain ⟨w, hw, hwa⟩ := haSpec
-      have hw_eq : w = starRingEnd ℂ (a : ℂ) := by
-        calc
-          w = starRingEnd ℂ (starRingEnd ℂ w) := by simp
-          _ = starRingEnd ℂ (a : ℂ) :=
-            congrArg (starRingEnd ℂ) hwa
-      rwa [← hw_eq]
-    have hbRoot : Polynomial.IsRoot A.charpoly
-        (starRingEnd ℂ (a : ℂ)) :=
-      Matrix.mem_spectrum_iff_isRoot_charpoly.mp hbSpec
-    let b : DiskRigidity.Complex.HermiteRoot A.charpoly :=
-      ⟨starRingEnd ℂ (a : ℂ),
-        Multiset.mem_toFinset.mpr
-          ((Polynomial.mem_roots (Matrix.charpoly_monic A).ne_zero).mpr hbRoot)⟩
-    have hmult : A.charpoly.rootMultiplicity (b : ℂ) =
-        Aᴴ.charpoly.rootMultiplicity (a : ℂ) := by
-      calc
-        A.charpoly.rootMultiplicity (b : ℂ) =
-            (A.charpoly.map (starRingEnd ℂ)).rootMultiplicity
-              (starRingEnd ℂ (b : ℂ)) :=
-          Polynomial.eq_rootMultiplicity_map
-            (f := starRingEnd ℂ) (starRingEnd ℂ).injective (b : ℂ)
-        _ = (A.charpoly.map (starRingEnd ℂ)).rootMultiplicity (a : ℂ) := by
-          simp [b]
-        _ = Aᴴ.charpoly.rootMultiplicity (a : ℂ) := by
-          exact congrArg (fun r : Polynomial ℂ ↦
-            r.rootMultiplicity (a : ℂ)) (charpoly_conjTranspose A).symm
-    have hkA : k.val < A.charpoly.rootMultiplicity (b : ℂ) := by
-      rw [hmult]
-      exact k.isLt
-    have hpjet :=
-      DiskRigidity.Complex.iteratedDeriv_spectralJetPolynomial_eval
-        (f := g) A b hkA
-    have hreflg := congrFun
-      (iteratedDeriv_reflectedHolomorphicFunction g k.val) (a : ℂ)
-    have hreflp := congrFun
-      (iteratedDeriv_reflectedHolomorphicFunction
-        (fun z ↦ p.eval z) k.val) (a : ℂ)
-    have hqfun : (fun z ↦ q.eval z) =
-        reflectedHolomorphicFunction (fun z ↦ p.eval z) := by
-      funext z
-      simp [q, p, reflectedHolomorphicFunction, conjugatePolynomial_eval]
-    rw [hqfun, hreflg, hreflp]
-    change star (iteratedDeriv k.val g (b : ℂ)) =
-      star (iteratedDeriv k.val (fun z ↦ p.eval z) (b : ℂ))
-    rw [hpjet]
-  rw [hjet, DiskRigidity.Complex.spectralJetEval_polynomial,
-    show q = conjugatePolynomial p from rfl,
-    polynomialEval_conjugate_conjTranspose,
-    show polynomialEval p A =
-      DiskRigidity.Complex.spectralJetEval A g from rfl]
-
-/-- Operator form of `spectralJetEval_reflected_conjTranspose`. -/
-theorem euclideanOperator_spectralJetEval_reflected_conjTranspose
-    (A : SquareMatrix n) (g : ℂ → ℂ) :
-    euclideanOperator (DiskRigidity.Complex.spectralJetEval Aᴴ
-      (reflectedHolomorphicFunction g)) =
-      ContinuousLinearMap.adjoint
-        (euclideanOperator (DiskRigidity.Complex.spectralJetEval A g)) := by
-  rw [spectralJetEval_reflected_conjTranspose,
-    euclideanOperator_conjTranspose]
 
 /-- Function-specific data needed for the holomorphic double-layer
 dilation.  The Cauchy input is only the ordinary holomorphic formula for
@@ -416,24 +309,13 @@ theorem holomorphic_cauchy_of_tendstoUniformlyOn_polynomial
   simpa only [G, base,
     DiskRigidity.Complex.holomorphicRightResolventIntegral] using hlimit
 
-/-- Equality and boundary-kernel data for two independently constructed
-holomorphic dilations.  In applications the second function is the reflected
-inner function on the adjoint numerical range. -/
+/-- Equality and boundary-kernel data from a holomorphic dilation. -/
 theorem exists_sharpEqualityData_and_holomorphicBoundaryKernel
     [Nonempty n]
-    {j : Type*} [TopologicalSpace j] [MeasurableSpace j]
-    [OpensMeasurableSpace j] {nu : Measure j}
-    [BorelSpace j] [IsFiniteMeasure nu]
-    {A Aadj : SquareMatrix n}
-    {Badj : CauchyResolventBoundary Aadj nu}
+    {A : SquareMatrix n}
     {B : CauchyResolventBoundary A mu}
-    {g gadj : ℂ → ℂ}
+    {g : ℂ → ℂ}
     (P : HolomorphicResolventDilationData B g)
-    (Padj : HolomorphicResolventDilationData Badj gadj)
-    (hadj : euclideanOperator
-        (DiskRigidity.Complex.spectralJetEval Aadj gadj) =
-      ContinuousLinearMap.adjoint
-        (euclideanOperator (DiskRigidity.Complex.spectralJetEval A g)))
     (hnorm : ‖DiskRigidity.Complex.spectralJetEval A g‖ = 2)
     (hradius : spectralRadius ℂ
       (euclideanOperator (DiskRigidity.Complex.spectralJetEval A g)) < 1) :
@@ -444,43 +326,13 @@ theorem exists_sharpEqualityData_and_holomorphicBoundaryKernel
           (y - P.boundaryFunction t • x) = 0 := by
   let T := euclideanOperator (DiskRigidity.Complex.spectralJetEval A g)
   let D := P.witness
-  let Dadj : DilationWitness (K := Lp (EuclideanVector n) 2 nu)
-      (ContinuousLinearMap.adjoint T) := by
-    rw [← hadj]
-    exact Padj.witness
   let realization : BoundaryMultiplicationRealization D mu :=
     BoundaryMultiplicationRealization.ofLp D P.boundaryFunction
       P.squareRoot.factor rfl P.squareRoot.boundaryIsometry_coe_ae
   have hoperatorNorm : ‖T‖ = 2 := by
     simpa only [T, ← matrix_norm_eq_operator_norm] using hnorm
   simpa only [T, realization, BoundaryMultiplicationRealization.ofLp] using
-    (exists_sharpEqualityData_and_boundaryKernel T D Dadj realization
+    (exists_sharpEqualityData_and_boundaryKernel T D realization
       hoperatorNorm hradius)
-
-/-- Reflected-function specialization of the preceding theorem.  The exact
-adjoint matrix identity is discharged by the spectral-jet reflection law. -/
-theorem exists_sharpEqualityData_and_reflectedHolomorphicBoundaryKernel
-    [Nonempty n]
-    {j : Type*} [TopologicalSpace j] [MeasurableSpace j]
-    [OpensMeasurableSpace j] {nu : Measure j}
-    [BorelSpace j] [IsFiniteMeasure nu]
-    {A : SquareMatrix n}
-    {Badj : CauchyResolventBoundary Aᴴ nu}
-    {B : CauchyResolventBoundary A mu}
-    {g : ℂ → ℂ}
-    (P : HolomorphicResolventDilationData B g)
-    (Padj : HolomorphicResolventDilationData Badj
-      (reflectedHolomorphicFunction g))
-    (hnorm : ‖DiskRigidity.Complex.spectralJetEval A g‖ = 2)
-    (hradius : spectralRadius ℂ
-      (euclideanOperator (DiskRigidity.Complex.spectralJetEval A g)) < 1) :
-    ∃ x y : EuclideanVector n,
-      SharpEqualityData
-        (euclideanOperator (DiskRigidity.Complex.spectralJetEval A g)) x y ∧
-        ∀ᵐ t ∂mu, P.squareRoot.factor t
-          (y - P.boundaryFunction t • x) = 0 := by
-  exact exists_sharpEqualityData_and_holomorphicBoundaryKernel P Padj
-    (euclideanOperator_spectralJetEval_reflected_conjTranspose A g)
-    hnorm hradius
 
 end DiskRigidity.Operator

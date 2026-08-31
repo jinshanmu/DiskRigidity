@@ -12,9 +12,9 @@ public import DiskRigidity.Operator.ConvexHolomorphicCauchy
 /-!
 # Concrete equality data for the boundary finite-Blaschke extremizer
 
-Both neighborhood Cauchy boundaries are now the canonical radial boundaries
-of the numerical ranges of `A` and `Aᴴ`.  Consequently the theorem below has
-no boundary, Cauchy, square-root, dilation, or spectral-radius hypothesis.
+The neighborhood Cauchy boundary is now the canonical radial boundary of the
+numerical range of `A`.  Consequently the theorem below has no boundary,
+Cauchy, square-root, dilation, or spectral-radius hypothesis.
 -/
 
 @[expose] public section
@@ -70,26 +70,13 @@ theorem exists_sharpEqualityData_and_concreteBoundaryKernel_of_nonconstant
   have hgK : ContinuousOn g (numericalRange A) := by
     rw [← hclosure]
     exact hgcl.continuousOn
-  let hspectrumAdj :=
-    spectrum_conjTranspose_subset_interior_numericalRange A hspectrum
   let B := neighborhoodHolomorphicCauchyBoundaryOfConvexBody A
     (numericalRange_convex A) hc (isCompact_numericalRange A)
       Set.Subset.rfl hspectrum
-  let Badj := neighborhoodHolomorphicCauchyBoundaryOfConvexBody Aᴴ
-    (numericalRange_convex Aᴴ)
-      (star_mem_interior_numericalRange_conjTranspose A hc)
-      (isCompact_numericalRange Aᴴ) Set.Subset.rfl hspectrumAdj
   let _ : IsFiniteMeasure
       (radialBoundaryArcLengthMeasure (numericalRange A) c) :=
     isFiniteMeasure_radialBoundaryArcLengthMeasure
       (numericalRange_convex A) hc (isCompact_numericalRange A)
-  let _ : IsFiniteMeasure
-      (radialBoundaryArcLengthMeasure (numericalRange Aᴴ)
-        (starRingEnd ℂ c)) :=
-    isFiniteMeasure_radialBoundaryArcLengthMeasure
-      (numericalRange_convex Aᴴ)
-      (star_mem_interior_numericalRange_conjTranspose A hc)
-      (isCompact_numericalRange Aᴴ)
   let P := convexDiskAlgebraDilationData B
     (numericalRange_convex A) hc (isCompact_numericalRange A)
       g hgK hgcl.differentiableOn
@@ -97,7 +84,7 @@ theorem exists_sharpEqualityData_and_concreteBoundaryKernel_of_nonconstant
         A hspectrum) hgOne
   obtain ⟨x, y, hxy, hkernel⟩ :=
     exists_sharpEqualityData_and_convexDiskAlgebraBoundaryKernel_of_nonconstant
-      A B Badj hc hspectrum g hgK hgcl.differentiableOn hgOne
+      A B hc hspectrum g hgK hgcl.differentiableOn hgOne
         hnonconst hnorm
   refine ⟨x, y, hxy, hkernel, ?_⟩
   filter_upwards [P.boundaryFunction_eq] with t ht
@@ -149,26 +136,13 @@ theorem exists_sharpEqualityData_and_concreteFiniteBlaschkeBoundaryKernel
   have hgK : ContinuousOn g (numericalRange A) := by
     rw [← hclosure]
     exact hgcl.continuousOn
-  let hspectrumAdj :=
-    spectrum_conjTranspose_subset_interior_numericalRange A hspectrum
   let B := neighborhoodHolomorphicCauchyBoundaryOfConvexBody A
     (numericalRange_convex A) hc (isCompact_numericalRange A)
       Set.Subset.rfl hspectrum
-  let Badj := neighborhoodHolomorphicCauchyBoundaryOfConvexBody Aᴴ
-    (numericalRange_convex Aᴴ)
-      (star_mem_interior_numericalRange_conjTranspose A hc)
-      (isCompact_numericalRange Aᴴ) Set.Subset.rfl hspectrumAdj
   let _ : IsFiniteMeasure
       (radialBoundaryArcLengthMeasure (numericalRange A) c) :=
     isFiniteMeasure_radialBoundaryArcLengthMeasure
       (numericalRange_convex A) hc (isCompact_numericalRange A)
-  let _ : IsFiniteMeasure
-      (radialBoundaryArcLengthMeasure (numericalRange Aᴴ)
-        (starRingEnd ℂ c)) :=
-    isFiniteMeasure_radialBoundaryArcLengthMeasure
-      (numericalRange_convex Aᴴ)
-      (star_mem_interior_numericalRange_conjTranspose A hc)
-      (isCompact_numericalRange Aᴴ)
   let P := convexDiskAlgebraDilationData B
     (numericalRange_convex A) hc (isCompact_numericalRange A)
       g hgK hgcl.differentiableOn
@@ -176,7 +150,7 @@ theorem exists_sharpEqualityData_and_concreteFiniteBlaschkeBoundaryKernel
         A hspectrum) hgOne
   obtain ⟨x, y, hxy, hkernel⟩ :=
     exists_sharpEqualityData_and_finiteBlaschkeBoundaryKernel
-      A B Badj hc hspectrum g phi Bl hgK hgcl.differentiableOn
+      A B hc hspectrum g phi Bl hgK hgcl.differentiableOn
         hbij hBl hgeq hnonconst hgOne hnorm
   refine ⟨x, y, hxy, hkernel, ?_⟩
   filter_upwards [P.boundaryFunction_eq] with t ht

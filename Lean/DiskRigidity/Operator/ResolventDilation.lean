@@ -756,21 +756,14 @@ theorem sharp_polynomial_bound_of_polynomialCauchyBoundary
   exact B.polynomialDilationData q (boundaryFunction q)
     (hboundaryValue q) (hboundaryNorm q hq)
 
-/-- The full equality and boundary-kernel data of Proposition 3.3 extracted
-from concrete forward and reflected-boundary resolvent constructions.  The
-matrix equality identifies the reflected polynomial value with the adjoint;
-none of the four vector identities or the boundary kernel is assumed. -/
+/-- The equality and boundary-kernel data of Proposition 3.3 extracted from a
+concrete forward-boundary resolvent construction. -/
 theorem exists_sharpEqualityData_and_resolventBoundaryKernel
     [Nonempty n]
-    {A Aadj : SquareMatrix n}
+    {A : SquareMatrix n}
     {B : CauchyResolventBoundary A mu}
-    {Badj : CauchyResolventBoundary Aadj mu}
-    {p q : Polynomial ℂ}
+    {p : Polynomial ℂ}
     (P : PolynomialResolventDilationData B p)
-    (Padj : PolynomialResolventDilationData Badj q)
-    (hadj : euclideanOperator (polynomialEval q Aadj) =
-      ContinuousLinearMap.adjoint
-        (euclideanOperator (polynomialEval p A)))
     (hnorm : ‖euclideanOperator (polynomialEval p A)‖ = 2)
     (hradius : spectralRadius ℂ
       (euclideanOperator (polynomialEval p A)) < 1) :
@@ -781,15 +774,11 @@ theorem exists_sharpEqualityData_and_resolventBoundaryKernel
             (y - P.boundaryFunction t • x) = 0 := by
   let T := euclideanOperator (polynomialEval p A)
   let D := P.witness
-  let Dadj : DilationWitness (K := Lp (EuclideanVector n) 2 mu)
-      (ContinuousLinearMap.adjoint T) := by
-    rw [← hadj]
-    exact Padj.witness
   let realization : BoundaryMultiplicationRealization D mu :=
     BoundaryMultiplicationRealization.ofLp D P.boundaryFunction
       P.squareRoot.factor rfl P.squareRoot.boundaryIsometry_coe_ae
   simpa only [T, realization, BoundaryMultiplicationRealization.ofLp] using
-    (exists_sharpEqualityData_and_boundaryKernel T D Dadj realization
+    (exists_sharpEqualityData_and_boundaryKernel T D realization
       hnorm hradius)
 
 end DiskRigidity.Operator
