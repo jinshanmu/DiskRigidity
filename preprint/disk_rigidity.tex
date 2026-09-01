@@ -87,15 +87,30 @@ on \(\Int K\) and carries the norm \(\|\cdot\|_{\Int K}\).  Whenever
 \(\spec(A)\subset\Int K\), the notation \(f(A)\) denotes the standard
 finite-dimensional holomorphic functional calculus, equivalently evaluation
 of any Hermite interpolating polynomial with the required spectral jets.
-The constant \(\psi(A)\) was introduced by Crouzeix~\cite{Crouzeix2004}, who conjectured that his
-dimension-two disk-extremality result persists in every dimension, which
-would imply \(\psi(A)\leq2\).  The operator-valued integral representation
-behind the modern estimates goes back to Delyon and
-Delyon~\cite{DelyonDelyon1999}.  Crouzeix and Palencia proved the bound
-\(1+\sqrt2\)~\cite{CrouzeixPalencia2017}, and Lorist and Schwenninger
-established the conjectured bound \(2\)~\cite{LoristSchwenninger2026}.  We retain the
-equality information in the double-layer and iterate arguments.  The resulting
-rigidity statement is the following.
+The constant \(\psi(A)\) was introduced by Crouzeix~\cite{Crouzeix2004}, who
+proved \(\psi(A)\leq2\) for \(2\times2\) matrices and conjectured the same
+bound in every dimension.  He subsequently obtained the first
+dimension-free bound~\cite{Crouzeix2007}.  The disk case is the classical
+Okubo--Ando theorem~\cite{OkuboAndo1975}, while the positive operator-valued
+double-layer representation behind the general convex-domain estimates goes
+back to Delyon and Delyon~\cite{DelyonDelyon1999}.  Crouzeix and Palencia
+reduced the universal constant to \(1+\sqrt2\)~\cite{CrouzeixPalencia2017}.
+
+Jin~\cite{Jin2026} and, independently, Lorist and
+Schwenninger~\cite{LoristSchwenninger2026} proved the scalar conjecture.  The
+latter proof applies an abstract \(2\)-dilation perturbation lemma
+simultaneously to all iterates in the double-layer representation.
+Subsequently, {\AA}hag, Czy\.z, Per\"al\"a, and Virtanen established sharp
+square-function inequalities, the complete conjecture in dimension three,
+and equality, stability, and representing-measure
+results~\cite{AhagEtAl2026}.  Their equality theory also produces a
+two-dimensional reducing nilpotent block and strong dimension-three
+restrictions.
+
+This paper develops the equality data into an all-dimensional geometric
+rigidity theorem.  Its central steps are rational collapse of the extremizer,
+identification of the full lemniscate with the numerical-range boundary, and
+a hyperbolic projective-dual contact count.
 
 \begin{Theorem}\label{thm:main}
 For every \(N\geq1\) and \(A\in M_N(\C)\),
@@ -113,7 +128,13 @@ extremizer.  A direct resolvent argument identifies its full unit lemniscate
 with \(\partial W(A)\).  Finally, the Kippenhahn determinant contains the dual
 curve as a hyperbolic factor.  A generic contact count makes the dual a conic,
 and the circular points at infinity then force \(\partial W(A)\) to be a
-circle.
+circle.  A separate ingredient, strict domain monotonicity of the matrix
+\(H^\infty\) functional-calculus norm, rules out a proper disk produced by the
+boundary-spectrum induction.
+Extensive numerical optimization by Greenbaum and
+Overton~\cite{GreenbaumOverton2018} repeatedly found stationary
+configurations with ratio \(2\) whose numerical ranges were disks; the theorem
+explains that pattern at exact equality.
 
 \section{Numerical-range preliminaries}
 
@@ -198,11 +219,11 @@ dominates that on every block.  Finally,
 which is the largest eigenvalue of the displayed Hermitian matrix.
 \end{proof}
 
-\section{The sharp bound and its equality case}
+\section{An equality-preserving sharp-bound argument}
 
-The equality analysis begins with the iterated-dilation estimate of Lorist and
-Schwenninger~\cite{LoristSchwenninger2026}; we first
-extract the equality consequences needed below.
+We use the equality-preserving form of the Lorist--Schwenninger iterate
+argument~\cite{LoristSchwenninger2026}, which records the pointwise identities
+needed for rigidity.
 
 \begin{Lemma}[An abstract dilation estimate]\label{lem:dilation}
 Let \(T\) act on a nonzero finite-dimensional Hilbert space.  Suppose that \(\mathcal M\) is a
@@ -319,11 +340,14 @@ Normalize \(\|f\|_K\leq1\).  Cauchy's boundary formula below also holds when
 converge uniformly to \(f\); apply the usual formula to them and pass to the
 limit.  The positive operator-valued double-layer kernel used below originates
 in Delyon and Delyon~\cite{DelyonDelyon1999} and appears in the
-Cauchy-transform form of Crouzeix and Palencia~\cite{CrouzeixPalencia2017}.
-Parametrize the
+Cauchy-transform form of Crouzeix and Palencia~\cite{CrouzeixPalencia2017};
+see also the recent double-layer and configuration-constant treatments
+in~\cite{SchwenningerDeVries2025,MalmanEtAl2025}.  Parametrize the
 rectifiable convex Jordan curve
 \(\Gamma=\partial K\) counterclockwise by arclength.  Its outward unit normal
-\(\mathfrak n(\sigma)\) exists almost everywhere.  Put
+\(\mathfrak n(\sigma)\) exists almost everywhere and has a measurable
+representative.  All boundary identities below are understood
+arclength-almost everywhere.  Put
 \(R_\sigma=(\sigma I-A)^{-1}\) and
 \[
  \mathcal P(\sigma)=\frac1\pi\Rea\bigl(\mathfrak n(\sigma)R_\sigma\bigr).
@@ -350,7 +374,10 @@ adjoints gives
 \[
  \int_\Gamma \mathcal P(\sigma)\,ds=2I.              \tag{3.6}
 \]
-Consequently
+The matrix field \(\mathcal P\) is measurable and positive semidefinite almost
+everywhere.  Since the positive-square-root map is continuous on the cone of
+positive semidefinite matrices, \(\sigma\mapsto\mathcal P(\sigma)^{1/2}\) is
+measurable (with arbitrary values on the exceptional null set).  Consequently
 \[
  (\mathcal Vx)(\sigma)=2^{-1/2}\mathcal P(\sigma)^{1/2}x
 \]
@@ -388,16 +415,20 @@ For \(f\in H^\infty(\Int K)\), normalize
 \[
  f_r(z)=g(r\phi(z)).
 \]
-These functions belong to \(\mathcal A(K)\), have norm at most \(1\), and their
-spectral jets converge to those of \(f\), because \(g(r\,\cdot)\to g\) locally
-uniformly with all derivatives.  Hence \(f_r(A)\to f(A)\), proving the
+The Carath\'eodory extension of \(\phi\) shows that \(f_r\in\mathcal A(K)\),
+and \(\|f_r\|_K\leq1\).  Moreover, \(g(r\,\cdot)\to g\) locally uniformly with
+all derivatives.  The finitely many spectral jets therefore converge, so
+\(f_r(A)\to f(A)\); applying (3.4) and passing to the limit proves the
 \(H^\infty\) estimate.
 
-Finally, for an arbitrary \(A\), apply (3.4) to the outer parallel convex body
-\(K_\varepsilon=W(A)+\varepsilon\overline\D\), which contains \(W(A)\) in its
-interior.  For a polynomial \(p\),
+For an arbitrary matrix \(A\), apply (3.4) to the outer parallel convex body
+\[
+ K_\varepsilon=W(A)+\varepsilon\overline\D,
+\]
+which contains \(W(A)\) in its interior.  For every polynomial \(p\), uniform
+continuity on a fixed compact neighborhood gives
 \(\|p\|_{K_\varepsilon}\to\|p\|_{W(A)}\).  Letting
-\(\varepsilon\downarrow0\) proves (3.3), including all boundary-spectrum and
+\(\varepsilon\downarrow0\) proves (3.3), including the boundary-spectrum and
 nonsmooth cases.
 \end{proof}
 
@@ -473,25 +504,64 @@ A bounded convex domain is a Jordan domain.  The Riemann mapping theorem and
 the Carath\'eodory boundary theorem therefore give the first assertion.
 
 Transfer the jet data to \(\D\) by \(\phi^{-1}\).  The confluent
-Nevanlinna--Pick theorem says that such finite data are feasible in the Schur
-class exactly when their generalized Pick matrix is positive semidefinite.
-The Schur recursion, with the final free parameter chosen unimodular, then
-produces a rational inner solution, hence a finite Blaschke product.  More
-precisely, let \(\mathcal J\) be the finite linear map that sends a holomorphic function
-to the prescribed vector \(\mathbf d\) of values and derivatives, and put
+change-of-variables matrix between the original and transferred jets is
+triangular with nonzero diagonal, because \((\phi^{-1})'\neq0\).  Write the
+distinct disk nodes as \(\zeta_i\), prescribe derivatives through order
+\(m_i-1\), and let \(q\) be the Hermite polynomial with those jets.  For a norm
+bound \(\rho>0\), the generalized Pick matrix used here is indexed by
+\((i,r)\), \(0\leq r<m_i\), and has entries
+\[
+ P(\rho)_{(i,r),(j,s)}=
+ \left.
+ \frac{1}{r!s!}\,
+ \partial_z^r\partial_{\overline w}^{s}
+ \frac{\rho^2-q(z)\overline{q(w)}}{1-z\overline w}
+ \right|_{z=\zeta_i,\,w=\zeta_j}.                  \tag{3.10}
+\]
+This matrix depends only on the prescribed jets, not on the chosen Hermite
+representative.  The finite confluent Nevanlinna--Pick theorem says that the
+data have an interpolant of norm at most \(\rho\) exactly when
+\(P(\rho)\succeq0\); see
+Sarason~\cite{Sarason1967} and
+Bultheel--Lasarow~\cite{BultheelLasarow2008}.  At the norm bound
+\(\rho=1\), a positive definite matrix admits a Schur parametrization; choosing
+a unimodular terminal parameter gives a rational inner solution.  In the scalar
+disk case, rational inner functions are finite Blaschke products.  For general
+\(\rho\), the corresponding conclusion is \(\rho\) times a rational inner
+function, obtained by rescaling the data.  At the minimal norm, singularity
+yields the following uniqueness conclusion.
+
+Contiguous jets at distinct nodes impose independent
+conditions: Hermite interpolation supplies polynomials \(h_{i,r}\) whose
+normalized derivative functionals satisfy
+\(h_{i,r}^{(s)}(\zeta_j)/s!=\delta_{ij}\delta_{rs}\).  Thus there are no hidden
+linear dependencies in (3.10).  Now let \(\mathcal J\) send a holomorphic
+function on \(\Omega\) to the prescribed jet vector \(\mathbf d\), and put
 \[
  c_0=\inf\{\|g\|_\Omega:g\in H^\infty(\Omega),\ \mathcal Jg=\mathbf d\}.
 \]
-Before forming the generalized Pick matrix, discard any duplicate conditions.
-The remaining evaluation and derivative functionals are linearly independent.
-If \(c_0=1\), the resulting Pick matrix at norm one is singular:
-if it were positive definite, continuity would preserve positive
-semidefiniteness when the norm bound \(1\) is decreased slightly, contrary to
-the definition of \(c_0\).  The uniqueness theorem for a solvable singular
-confluent Pick problem now applies, and the Schur recursion shows that its
-unique Schur solution is a finite Blaschke product.
-The matrix-induced version of these facts, including the repeated-node
-conditions arising from Jordan blocks, is due to Crouzeix~\cite{Crouzeix2004}.
+If \(c_0=1\), then \(P(1)\) is singular: if it were positive definite,
+continuity of (3.10) in \(\rho\) would give \(P(\rho)\succeq0\) for some
+\(\rho<1\), contradicting minimality.  Let
+\[
+ \Theta(z)=\prod_i
+ \left(\frac{z-\zeta_i}{1-\overline{\zeta_i}z}\right)^{m_i}.
+\]
+Two bounded holomorphic functions have the same prescribed jets exactly when
+their difference belongs to \(\Theta H^\infty\).  Thus the interpolation data
+form one coset of \(H^\infty/\Theta H^\infty\), represented on the
+finite-dimensional model space
+\(K_\Theta=H^2\ominus\Theta H^2\) by an operator \(X\) commuting with the
+compressed shift.  Sarason's lifting theorem identifies the least interpolant
+norm with \(\|X\|\), so \(\|X\|=1\).  The norm of \(X\) is attained because
+\(K_\Theta\) is finite dimensional.  Sarason's maximal-vector uniqueness
+theorem~\cite[Proposition~5.1]{Sarason1967} now gives a unique norm-one
+interpolant and says that it is inner.  Its quotient formula uses two elements
+of the finite-dimensional rational space \(K_\Theta\), so the interpolant is
+rational and hence a finite Blaschke product.  This also proves the uniqueness
+asserted in the lemma.  The role of such finite-Blaschke extremizers in the
+matrix functional-calculus problem is developed by
+Crouzeix~\cite{Crouzeix2004} and Li~\cite{Li2020}.
 \end{proof}
 
 For a bounded domain \(\Omega\) and a matrix \(A_0\) with
@@ -646,8 +716,6 @@ has norm at most \(1\).
 
 \section{From equality to a rational inner function}
 
-We first locate an analytic boundary arc.
-
 \begin{Lemma}[A curved numerical-range arc]\label{lem:arc}
 If \(K=W(A)\) has interior, \(\spec(A)\subset\Int K\), and \(K\) is not a
 polygon, then \(\partial K\) contains an open real-analytic arc on which every
@@ -665,11 +733,18 @@ By Rellich's analytic perturbation theorem~\cite{Rellich1937}, for every
 \(\theta_0\) the eigenvalues of the real-analytic Hermitian matrix family
 \(\mathcal H(\theta)\) can be numbered, with multiplicity, by real-analytic
 functions of \(\theta\) on a neighborhood of \(\theta_0\).  Take
-a finite cover of the parameter circle by such intervals and merge branches
-that agree identically.  On the closure of a smaller interval, the difference
-of two remaining branches has only finitely many zeros by the analytic
-identity theorem.  Subdividing at these crossings gives a finite partition
-into intervals on which \(h_A\) is analytic.
+a finite cover of the parameter circle by such intervals.  On each interval,
+place two branches in the same class when they agree on a nonempty open
+subinterval; the analytic identity theorem then makes them identical on the
+whole interval.  Choose one representative of each class and shrink slightly
+to a compact subinterval.  The difference of any two distinct representatives
+is a nonzero real-analytic function and therefore has only finitely many zeros
+there.  Subdividing at the union of these finitely many crossing points fixes
+the ordering of all branches; on every resulting open interval their maximum
+\(h_A\) is one analytic branch.  A finite cover and a common refinement give
+the asserted finite subdivision of the parameter circle.  This is the
+finite-dimensional support-function form of the analytic Kippenhahn-curve
+description; compare~\cite{PlaumannSinnWeis2021}.
 
 At a differentiability point, the exposed boundary point is
 \[
@@ -698,6 +773,29 @@ The two independent real-linear equations imply
 \(A\upsilon=\lambda\upsilon\) and
 \(A^*\upsilon=\overline\lambda\upsilon\).  Thus \(\lambda\) is a
 boundary eigenvalue, contradicting \(\spec(A)\subset\Int K\).
+\end{proof}
+
+\begin{Lemma}[Boundary-arc uniqueness]\label{lem:boundary-uniqueness}
+Let \(D\subset\C\) be a connected domain and let \(\Gamma_0\subset\partial D\)
+be a nonempty open regular real-analytic arc such that, near each point of
+\(\Gamma_0\), \(D\) is exactly one of the two local components cut out by the
+arc.  If \(g\) is holomorphic
+on \(D\), continuous on \(D\cup\Gamma_0\), and its boundary values vanish
+arclength-almost everywhere on \(\Gamma_0\), then \(g\equiv0\) on \(D\).
+\end{Lemma}
+
+\begin{proof}
+Every open subarc has positive arclength, so continuity first makes \(g\) zero
+at every point of \(\Gamma_0\).  Near one such point, complexify a regular
+real-analytic parametrization of the arc.  Its derivative is nonzero, so the
+holomorphic inverse-function theorem gives a biholomorphic coordinate that
+sends the arc to a real interval and the local part of \(D\) to one
+half-disk.  In that coordinate, extend \(g\) by zero to the opposite
+half-disk.  The extension is continuous; subdividing any triangle along the
+diameter and applying Cauchy's theorem on the pieces proves Morera's
+criterion.  The extension is holomorphic and zero on an open half-disk, hence
+zero throughout the disk by the identity theorem.  Thus \(g\) vanishes on a
+nonempty open subset of \(D\), and connectedness gives the conclusion.
 \end{proof}
 
 \begin{Proposition}[Rational collapse]\label{prop:rational}
@@ -768,18 +866,12 @@ Expanding (5.5), using \(|f(\sigma)|=1\) and (5.6), yields
 \[
  2a(\sigma)-f(\sigma)c(\sigma)=0                     \tag{5.7}
 \]
-almost everywhere on the arc.  Every nonempty subarc has positive arclength,
-so the set on which (5.7) holds is dense; continuity gives (5.7) on the whole
-arc.  Near any point of the arc, choose a biholomorphic coordinate that maps
-the arc to a real interval.  Convexity places \(\Omega\) in one half-disk, and
-the spectrum is a positive distance away, so \(cf-2a\) is analytic in that
-half-disk and continuous to its diameter.  Extend it by zero to the opposite
-half-disk.  The extension is continuous, and Morera's theorem, applied after
-subdividing each triangle along the diameter, makes it holomorphic.  The
-identity theorem first gives \(cf-2a=0\) in an interior collar.  The punctured
-domain \(\Omega\setminus\spec(A)\) is connected; applying the identity theorem
-there proves \(cf-2a=0\) throughout it, hence as a meromorphic identity on
-\(\Omega\).  Since \(a(z)=z^{-1}+O(z^{-2})\) at infinity, \(a\) is not the
+almost everywhere on the arc.  The punctured domain
+\(D=\Omega\setminus\spec(A)\) is connected, and \(cf-2a\) is holomorphic on
+\(D\) and continuous up to the chosen arc.  Convexity supplies the local
+one-sidedness required by Lemma~\ref{lem:boundary-uniqueness}; that lemma gives
+\(cf-2a=0\) on \(D\), hence as a meromorphic identity on \(\Omega\).  Since
+\(a(z)=z^{-1}+O(z^{-2})\) at infinity, \(a\) is not the
 zero rational function; the identity therefore also shows that \(c\) is not
 identically zero.  This proves (5.2).
 
@@ -914,7 +1006,73 @@ convexity.
 \section{The algebraic tangent argument}
 
 The Hermitian determinant below is the line-coordinate polynomial introduced
-by Kippenhahn~\cite{Kippenhahn1951}.
+by Kippenhahn~\cite{Kippenhahn2008}; modern projective-dual
+accounts appear in~\cite{PlaumannSinnWeis2021}.  Throughout this section,
+primal projective coordinates are ordered as \([Z:X:Y]\), dual coordinates as
+\([s:u:v]\), and incidence is
+\[
+ sZ+uX+vY=0.
+\]
+Thus the affine point \(z=X+iY\) is \([1:X:Y]\).
+
+\begin{Proposition}[Generic hyperbolic contact count]
+\label{prop:generic-contact}
+Let \(\mathscr C\subset\mathbb P^2_\C\) be an irreducible projective curve
+defined over \(\R\), and suppose its entire real locus is a smooth strictly
+convex oval in the affine chart \(Z=1\).  Let
+\(\mathscr Q(s,u,v)\) be a real irreducible homogeneous equation of the dual
+curve \(\mathscr C^*\).  If
+\[
+ \mathscr Q(1,0,0)\neq0
+ \quad\text{and}\quad
+ s\longmapsto\mathscr Q(s,u,v)
+ \text{ has only real zeros for all }(u,v)\in\R^2,
+\]
+then \(\deg\mathscr Q=2\).
+\end{Proposition}
+
+\begin{proof}
+Write \(m=\deg\mathscr Q\).  The normalization, conormal, and biduality theory
+of projective plane curves in characteristic zero gives the following generic
+contact description; see Tevelev~\cite{Tevelev2003}.
+\begin{enumerate}
+\item Outside a finite subset \(B\subset\mathscr C^*\), a smooth dual point
+has one smooth contact point on \(\mathscr C\), and the tangent line to
+\(\mathscr C^*\) at that dual point recovers the contact point.  This is the
+generic one-to-one Gauss correspondence supplied by biduality; \(B\) absorbs
+the singular, branch, and ramification loci.
+\item Since \([1:0:0]\notin\mathscr C^*\), projection from that point,
+\[
+ \pi:\mathscr C^*\longrightarrow\mathbb P^1,
+ \qquad [s:u:v]\longmapsto[u:v],
+\]
+is everywhere defined and has generic degree \(m\): a generic fiber is the
+intersection with a line through \([1:0:0]\), and B\'ezout gives \(m\) points.
+\item In characteristic zero this projection is separable.  Equivalently, the
+discriminant of \(\mathscr Q(s,u,v)\), viewed as a binary homogeneous
+polynomial in \((u,v)\), is not identically zero.  The branch values of \(\pi\)
+and the projection of \(B\) therefore form a finite exceptional subset of
+\(\mathbb P^1\).
+\item Choose a real \([u:v]\) outside that set.  Because the coefficient of
+\(s^m\) is \(\mathscr Q(1,0,0)\neq0\), specialization does not lower the
+degree.  Hence there are \(m\) distinct roots \(s_j\), all real by hypothesis,
+and \(\ell_j=[s_j:u:v]\) are smooth real points of \(\mathscr C^*\setminus B\).
+\item Biduality and the chosen coordinate order identify the unique contact
+point with
+\[
+ [Z:X:Y]=
+ [\mathscr Q_s(\ell_j):\mathscr Q_u(\ell_j):
+   \mathscr Q_v(\ell_j)].
+\]
+The polynomial and \(\ell_j\) are real, so this point is real and therefore
+lies on the given oval.
+\item A fixed unoriented normal \([u:v]\) has exactly two tangent lines to a
+smooth strictly convex oval: the unique support lines at the maximum and
+minimum of \(uX+vY\).  Thus the \(m\) lines just found give \(m\leq2\).
+Conversely, both support lines are points of \(\mathscr C^*\), so they are two
+distinct roots and \(m\geq2\).  Hence \(m=2\).
+\end{enumerate}
+\end{proof}
 
 \begin{Proposition}[Circle criterion]\label{prop:circle}
 Let \(K\) be a compact convex body whose boundary is the full level set
@@ -938,15 +1096,12 @@ Put \(f=U/V\).  Write \(z=X+iY\), \(w=X-iY\), and
 \(S^\#(w)=\overline{S(\overline w)}\) for a polynomial \(S\).
 For a homogenization \(S_h(w,Z)\), the notation \(S_h^\#\) means
 coefficientwise conjugation, with \(w,Z\) left unchanged.
-We use primal coordinates \([X:Y:Z]\); a line
-\(sZ+uX+vY=0\) has dual coordinates \([s:u:v]\).  Thus, in vector
-incidence formulas below, put
-\(\mathbf z=(Z,X,Y)^{\mathsf T}\) and
-\(\boldsymbol\ell=(s,u,v)^{\mathsf T}\).
+Put \(\mathbf z=(Z,X,Y)^{\mathsf T}\) and
+\(\boldsymbol\ell=(s,u,v)^{\mathsf T}\), in the coordinate order fixed above.
 Let \(d=\deg U\), \(e=\deg V<d\), and homogenize the real lemniscate polynomial
 to degree \(2d\):
 \[
- \mathscr F(X,Y,Z)=
+ \mathscr F(Z,X,Y)=
  U_h(X+iY,Z)U_h^\#(X-iY,Z)
  -Z^{2(d-e)}V_h(X+iY,Z)V_h^\#(X-iY,Z).               \tag{7.3}
 \]
@@ -959,30 +1114,42 @@ Here \(U_h,V_h\) are the usual homogenizations to their own degrees.  At
  \quad\text{on }|f|=1.
 \]
 Here \(V\neq0\) on the level and \(f'\neq0\) there by hypothesis, so the
-boundary lies in the regular locus of \(\mathscr F=0\).  It therefore lies in
-the zero set of a single complex irreducible factor of \(\mathscr F\); denote
-the corresponding projective curve by \(\mathscr C\).  Locally only one factor
-can vanish at a regular point, and connectedness selects the same factor along
-the boundary.  Because this factor contains a real arc, it is fixed by
-conjugation and can be chosen with real coefficients.
+boundary lies in the regular locus of \(\mathscr F=0\).
 
-Every real affine point of \(\mathscr C\) is a real zero of (7.3), hence is on
-the full level (7.1); coprimality prevents \(U,V\) from vanishing there
-simultaneously.  Thus
+\medskip\noindent\emph{Selection of the real component.}
+Factor \(\mathscr F\) over \(\C\).  At a regular zero exactly one irreducible
+factor occurrence vanishes: two vanishing factors, or a repeated vanishing
+factor, would make every first derivative of \(\mathscr F\) zero.  The choice
+of that factor is locally constant along the boundary, because all other
+factors remain nonzero nearby.  The boundary is connected, so one factor
+\(\mathscr P\) vanishes on all of it; let \(\mathscr C=V(\mathscr P)\).
+Since \(\mathscr F\) has real coefficients, the coefficientwise conjugate
+\(\overline{\mathscr P}\) is also a factor and vanishes at each real boundary
+point.  Local uniqueness makes \(\overline{\mathscr P}\) an associate of
+\(\mathscr P\); rescaling \(\mathscr P\) therefore gives real coefficients.
+Thus \(\mathscr C\) is an irreducible real projective curve, and it is smooth
+along the boundary.
+
+\medskip\noindent\emph{The entire real locus.}
+Every real affine point of \(\mathscr C\) is a real zero of (7.3).  If
+\(V(z)=0\) there, (7.3) also forces \(U(z)=0\), contradicting coprimality.
+Hence \(V(z)\neq0\), and (7.1) puts the point on \(\partial K\).  The reverse
+inclusion holds by construction of \(\mathscr C\), so
 \[
  \mathscr C(\R)\cap\{Z\neq0\}
- =\{[X:Y:1]:X+iY\in\partial K\}
+ =\{[1:X:Y]:X+iY\in\partial K\}.
 \]
-after identifying the affine chart with \(Z=1\).  There are no additional
-real points at infinity,
-because at \(Z=0\), where \(\operatorname{lc}(U)\) denotes the leading
-coefficient of \(U\),
+There are no additional real points at infinity.  Indeed, if
+\(\operatorname{lc}(U)\) denotes the nonzero leading coefficient of \(U\),
 \[
- \mathscr F(X,Y,0)=|\operatorname{lc}(U)|^2
+ \mathscr F(0,X,Y)=|\operatorname{lc}(U)|^2
                     (X^2+Y^2)^d,                    \tag{7.4}
 \]
-which has no real projective zero.  Therefore the real projective locus of
-\(\mathscr C\) is exactly the one oval identified with \(\partial K\).
+and \(X^2+Y^2>0\) for every nonzero real projective pair \([X:Y]\).  Therefore
+\[
+ \mathscr C(\R)=\{[1:X:Y]:X+iY\in\partial K\},
+\]
+exactly one smooth strictly convex affine oval.
 
 Let \(\mathscr C^*\) be the projective dual curve, the Zariski closure of the
 tangent lines at smooth points of \(\mathscr C\), and let
@@ -992,50 +1159,33 @@ real coefficients.  Tangency on an open real arc and (7.2) imply
  \mathscr Q(s,u,v)\ \text{divides}
  \det(sI+u\mathsf H+v\mathsf J).                     \tag{7.5}
 \]
-Indeed, the corresponding tangent arc is Zariski dense in the irreducible curve
-\(\mathscr C^*\).  The determinant therefore vanishes on all of
-\(\mathscr C^*\).  Its homogeneous prime ideal is the principal ideal
-\((\mathscr Q)\), which proves the divisibility.
+Indeed, the Gauss image of that arc is nonconstant: a constant tangent line
+would contain a nontrivial boundary arc, contrary to strict convexity.  Its
+image is therefore infinite and hence Zariski dense in the irreducible curve
+\(\mathscr C^*\).  The determinant vanishes on that dense set and thus on all
+of \(\mathscr C^*\).  The homogeneous prime ideal of a plane curve is the
+principal ideal \((\mathscr Q)\), proving (7.5).  Since \(\mathscr C\) is real,
+its dual is invariant under conjugation; as in the primal factor argument,
+\(\mathscr Q\) can be rescaled to have real coefficients.
 
 Set \(\mathbf e=[1:0:0]\).  The determinant in (7.5) equals \(1\) at
-\(\mathbf e\), so \(\mathscr Q(\mathbf e)\neq0\).  For real \(u,v\), all roots
-in \(s\) of the determinant are real, because they are the negatives of the
-eigenvalues of the Hermitian matrix \(u\mathsf H+v\mathsf J\).  Hence every root of
-\(\mathscr Q(s,u,v)\) is real.  In other words, \(\mathscr Q\) is hyperbolic
-with respect to \(\mathbf e\).
-
-Let \(m=\deg\mathscr Q\).  The coefficient of \(s^m\) in
-\(\mathscr Q(s,u,v)\) is \(\mathscr Q(1,0,0)\neq0\).  Choose a real projective
-direction \([u:v]\) outside the finite exceptional set described next.
-On the normalization of \(\mathscr C\), the Gauss map to
-\(\mathscr C^*\) is generically one-to-one by projective biduality in
-characteristic zero.  Its ramification locus, the singular locus of
-\(\mathscr C^*\), and the tangent images of the finitely many singular points
-of \(\mathscr C\) are finite.  Exclude their projections to \([u:v]\), as well
-as the discriminant directions of \(\mathscr Q(s,u,v)\).  The discriminant is
-not identically zero because the generic projection of an irreducible curve is
-separable in characteristic zero.  The specialization then has \(m\) distinct
-roots, and hyperbolicity makes the corresponding dual points
-\(\ell_j=[s_j:u:v]\) real and smooth.
-
-Biduality gives each \(\ell_j\) a unique contact point on the smooth locus of
-\(\mathscr C\).  Writing subscripts for partial derivatives, Euler's identity for the homogeneous polynomial
-\(\mathscr Q\) shows that the tangent to \(\mathscr C^*\) at \(\ell_j\)
-corresponds, in the standard primal coordinate order, to
+\(\mathbf e\), so \(\mathscr Q(1,0,0)\neq0\).  If
+\(m=\deg\mathscr Q\), homogeneity gives
 \[
- [X:Y:Z]=[\mathscr Q_u(\ell_j):\mathscr Q_v(\ell_j):
-   \mathscr Q_s(\ell_j)],
+ [s^m]\mathscr Q(s,u,v)=\mathscr Q(1,0,0)\neq0.
 \]
-so the contact point is real.  It therefore belongs to the oval identified
-with \(\partial K\).
+Thus specialization never lowers the degree in \(s\).  Specializing the
+polynomial divisibility (7.5) shows that every zero of
+\(\mathscr Q(s,u,v)\) is a zero of the Hermitian determinant.  For real
+\(u,v\), the latter zeros are the negatives of the eigenvalues of
+\(u\mathsf H+v\mathsf J\), and are therefore real.  Hence \(\mathscr Q\) is
+hyperbolic with respect to \(\mathbf e\) in the elementary real-rootedness
+sense~\cite{Garding1959,HeltonVinnikov2007}.
 
-A smooth strictly convex oval has
-exactly two tangent lines with a prescribed unoriented normal \([u:v]\): the
-support line at the maximum and the one at the minimum of \(uX+vY\).
-The preceding count shows that there are at most two roots; conversely these
-two support lines belong to \(\mathscr C^*\), so both are roots.  Consequently
+The exact real-locus identity above and
+Proposition~\ref{prop:generic-contact} now give
 \[
- m=2.                                                 \tag{7.6}
+ \deg\mathscr Q=2.                                    \tag{7.6}
 \]
 Thus \(\mathscr C^*\) is an irreducible conic and is nonsingular.  Writing its
 equation as
@@ -1044,20 +1194,23 @@ symmetric \(3\times3\) matrix \(\Sigma\), its tangent at
 \(\boldsymbol\ell\) corresponds to the primal point
 \(\Sigma\boldsymbol\ell\).  The envelope of those tangents is
 \(\mathbf z^{\mathsf T}\Sigma^{-1}\mathbf z=0\), also a conic.  Since it
-contains a Zariski-dense
-arc of \(\mathscr C\), it is \(\mathscr C\).
+contains the generic bidual contact points, a Zariski-dense subset of
+\(\mathscr C\), it is \(\mathscr C\).
 
 Finally, because the defining polynomial of \(\mathscr C\) divides
 \(\mathscr F\), every point of this conic at infinity must be one of
 \[
- [1:i:0],\qquad[1:-i:0].
+ [0:1:i],\qquad[0:1:-i].
 \]
-B\'ezout's theorem applied to the line \(Z=0\) gives two intersection points
-counted with multiplicity.  Complex conjugation exchanges the two displayed,
-distinct circular points, so each occurs once.  The real homogeneous equation
-of the conic therefore has the form
+The line \(Z=0\) is not a component of \(\mathscr C\): the curve is
+irreducible and contains its affine oval.  B\'ezout's theorem therefore gives
+total intersection multiplicity two with the line at infinity.  Complex
+conjugation exchanges the two
+displayed, distinct circular points and preserves multiplicity, so each
+occurs once.  The real homogeneous equation of the conic consequently has the
+form
 \[
- q_0(X^2+Y^2)+q_1XZ+q_2YZ+q_3Z^2=0,
+ q_0(X^2+Y^2)+q_1ZX+q_2ZY+q_3Z^2=0,
  \qquad q_0\neq0.
 \]
 Completing squares shows that its nonempty compact real oval is a circle.
@@ -1120,10 +1273,13 @@ which completes the induction and the proof.
 \acknowledgments{The author used Codex with GPT-5.6 Sol Ultra for proof development,
 Lean formalization, and language editing, reviewed all output, and takes full
 responsibility for the publication.}
-\dataavailability{A sanitized transcript and reasoning record from the Codex
-session, together with the manuscript drafts and machine-checked formalization,
-are openly available at
-\url{https://github.com/jinshanmu/DiskRigidity}.}
+\dataavailability{The source archive contains the theorem-matched Lean
+development.  The audited \texttt{.lean} sources and toolchain files
+correspond to Git commit
+\texttt{\seqsplit{5af901c72a5148f782cc91551f76127ec93a98c5}} and use
+Lean~4.33.1 with mathlib~v4.33.1.  The file
+\texttt{Lean/FORMALIZATION.md} records the formalization coverage,
+dependencies, and reproducible fresh-checkout commands.}
 \conflictsofinterest{The author declares no conflicts of interest.}
 
 \reftitle{References}
@@ -1134,6 +1290,16 @@ are openly available at
 Crouzeix, M. Bounds for analytical functions of matrices.
 \emph{Integral Equations Oper. Theory} \textbf{2004}, \emph{48}, 461--477.
 \url{https://doi.org/10.1007/s00020-002-1188-6}.
+
+\bibitem[Crouzeix(2007)]{Crouzeix2007}
+Crouzeix, M. Numerical range and functional calculus in Hilbert space.
+\emph{J. Funct. Anal.} \textbf{2007}, \emph{244}, 668--690.
+\url{https://doi.org/10.1016/j.jfa.2006.10.013}.
+
+\bibitem[Okubo and Ando(1975)]{OkuboAndo1975}
+Okubo, K.; Ando, T. Constants related to operators of class \(C_{\rho}\).
+\emph{Manuscripta Math.} \textbf{1975}, \emph{16}, 385--394.
+\url{https://doi.org/10.1007/BF01323467}.
 
 \bibitem[Delyon and Delyon(1999)]{DelyonDelyon1999}
 Delyon, B.; Delyon, F. Generalization of von Neumann's spectral sets and
@@ -1147,10 +1313,54 @@ Crouzeix, M.; Palencia, C. The numerical range is a
 \textbf{2017}, \emph{38}, 649--655.
 \url{https://doi.org/10.1137/17M1116672}.
 
+\bibitem[Jin(2026)]{Jin2026}
+Jin, S. The numerical range is a \(2\)-spectral set.
+\emph{Preprints} \textbf{2026}, 202607.1919.v4.
+\url{https://doi.org/10.20944/preprints202607.1919.v4}.
+
 \bibitem[Lorist and Schwenninger(2026)]{LoristSchwenninger2026}
 Lorist, E.; Schwenninger, F.L. A solution to Crouzeix's conjecture.
 \emph{arXiv} \textbf{2026}, arXiv:2608.03841v2, 7~pp.
 \url{https://doi.org/10.48550/arXiv.2608.03841}.
+
+\bibitem[{\AA}hag et al.(2026)]{AhagEtAl2026}
+{\AA}hag, P.; Czy\.z, R.; Per\"al\"a, A.; Virtanen, J.
+Square functions and the complete Crouzeix conjecture in dimension three.
+\emph{arXiv} \textbf{2026}, arXiv:2608.27346v1.
+\url{https://doi.org/10.48550/arXiv.2608.27346}.
+
+\bibitem[Li(2020)]{Li2020}
+Li, K. On the uniqueness of functions that maximize the Crouzeix ratio.
+\emph{Linear Algebra Appl.} \textbf{2020}, \emph{599}, 105--120.
+\url{https://doi.org/10.1016/j.laa.2020.03.045}.
+
+\bibitem[Greenbaum and Overton(2018)]{GreenbaumOverton2018}
+Greenbaum, A.; Overton, M.L. Numerical investigation of Crouzeix's
+conjecture. \emph{Linear Algebra Appl.} \textbf{2018}, \emph{542}, 225--245.
+\url{https://doi.org/10.1016/j.laa.2017.04.035}.
+
+\bibitem[Schwenninger and de Vries(2025)]{SchwenningerDeVries2025}
+Schwenninger, F.L.; de Vries, J. The double-layer potential for spectral
+constants revisited. \emph{Integral Equations Oper. Theory} \textbf{2025},
+\emph{97}, Article~13, 22~pp.
+\url{https://doi.org/10.1007/s00020-025-02800-2}.
+
+\bibitem[Malman et al.(2025)]{MalmanEtAl2025}
+Malman, B.; Mashreghi, J.; O'Loughlin, R.; Ransford, T. Double-layer
+potentials, configuration constants, and applications to numerical ranges.
+\emph{Int. Math. Res. Not. IMRN} \textbf{2025}, 2025, Paper No.~rnaf084,
+34~pp. \url{https://doi.org/10.1093/imrn/rnaf084}.
+
+\bibitem[Sarason(1967)]{Sarason1967}
+Sarason, D. Generalized interpolation in \(H^{\infty}\).
+\emph{Trans. Am. Math. Soc.} \textbf{1967}, \emph{127}, 179--203.
+\url{https://doi.org/10.1090/S0002-9947-1967-0208383-8}.
+
+\bibitem[Bultheel and Lasarow(2008)]{BultheelLasarow2008}
+Bultheel, A.; Lasarow, A. Solution of a multiple Nevanlinna--Pick problem
+for Schur functions via orthogonal rational functions.
+\emph{Analysis} \textbf{2008}, \emph{28}, 95--123.
+\url{https://doi.org/10.1524/anly.2008.0904}.
 
 \bibitem[Rellich(1937)]{Rellich1937}
 Rellich, F. St\"orungstheorie der Spektralzerlegung. I. Mitteilung.
@@ -1158,10 +1368,32 @@ Analytische St\"orung der isolierten Punkteigenwerte eines beschr\"ankten
 Operators. \emph{Math. Ann.} \textbf{1937}, \emph{113}, 600--619.
 \url{https://doi.org/10.1007/BF01571652}.
 
-\bibitem[Kippenhahn(1951)]{Kippenhahn1951}
-Kippenhahn, R. \"Uber den Wertevorrat einer Matrix. \emph{Math. Nachr.}
-\textbf{1951}, \emph{6}, 193--228.
-\url{https://doi.org/10.1002/mana.19510060306}.
+\bibitem[Kippenhahn(2008)]{Kippenhahn2008}
+Kippenhahn, R. On the numerical range of a matrix; Zachlin, P.F.;
+Hochstenbach, M.E., Translators. \emph{Linear Multilinear Algebra}
+\textbf{2008}, \emph{56}, 185--225.
+\url{https://doi.org/10.1080/03081080701553768}.
+
+\bibitem[Plaumann et al.(2021)]{PlaumannSinnWeis2021}
+Plaumann, D.; Sinn, R.; Weis, S. Kippenhahn's theorem for joint numerical
+ranges and quantum states. \emph{SIAM J. Appl. Algebra Geom.}
+\textbf{2021}, \emph{5}, 86--113.
+\url{https://doi.org/10.1137/19M1286578}.
+
+\bibitem[G{\aa}rding(1959)]{Garding1959}
+G{\aa}rding, L. An inequality for hyperbolic polynomials.
+\emph{J. Math. Mech.} \textbf{1959}, \emph{8}, 957--965.
+\url{https://doi.org/10.1512/iumj.1959.8.58061}.
+
+\bibitem[Helton and Vinnikov(2007)]{HeltonVinnikov2007}
+Helton, J.W.; Vinnikov, V. Linear matrix inequality representation of sets.
+\emph{Commun. Pure Appl. Math.} \textbf{2007}, \emph{60}, 654--674.
+\url{https://doi.org/10.1002/cpa.20155}.
+
+\bibitem[Tevelev(2003)]{Tevelev2003}
+Tevelev, E.A. Projectively dual varieties.
+\emph{J. Math. Sci.} \textbf{2003}, \emph{117}, 4585--4732.
+\url{https://doi.org/10.1023/A:1025366207448}.
 
 \end{thebibliography}
 
